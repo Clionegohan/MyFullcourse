@@ -8,15 +8,18 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
     <body>
+        <a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
         <h1 class="title">
-            {{ post->title }}
+            {{ $post->title }}
         </h1>
+        <a class="">{{ $post->category->name }}</a>
         <div class="content">
-                <div class="content_post">
+                <div class="content__post">
                     <h3>Menuの詳細</h3>
                     <p>{{ $post->body }}</p>
                 </div>
         </div>
+        <div class="edit"><a href="/posts/{{ $post->id }}/edit">edit</a></div>
         <div class="footer">
             <a href="/">戻る</a>
         </div>

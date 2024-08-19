@@ -6,10 +6,18 @@
     </head>
     <body>
         <h1>Menu</h1>
-        <!--カテゴリ名を入れたげるといいのかも-->
+        
         <form action="/posts" method="POST">
             @csrf
             <div class="title">
+                <div class="category">
+                    <h2>Category</h2>
+                    <select name="post[category_id]">
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <h2>Menu</h2>
                 <input type="text" name="post[title]" placeholder="料理名" value="{{ old('post.title') }}"/>
                 <p class="title_error" style="color:red">{{ $errors->first('post.title') }}</p>
