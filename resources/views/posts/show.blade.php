@@ -14,12 +14,21 @@
         </h1>
         <a class="">{{ $post->category->name }}</a>
         <div class="content">
-                <div class="content__post">
-                    <h3>Menuの詳細</h3>
-                    <p>{{ $post->body }}</p>
-                </div>
+            <div class="content__post">
+                <h3>Menuの詳細</h3>
+                <p>{{ $post->body }}</p>
+            </div>
+            @if($post->images->isNotEmpty())
+            <div>
+                @foreach($post->images as $image)
+                <img src="{{ $image->image_url }}" alt="画像が読み込めません。">
+                @endforeach
+            </div>
+            @endif
         </div>
+        @if(auth()->user()->id === $post->user_id)
         <div class="edit"><a href="/posts/{{ $post->id }}/edit">edit</a></div>
+        @endif
         <div class="footer">
             <a href="/">戻る</a>
         </div>

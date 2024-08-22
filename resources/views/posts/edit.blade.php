@@ -4,9 +4,6 @@
         <meta charset="utf-8">
         <title>MyFullCourse</title>
     </head>
-
-<!--操作してる人のuser_idとpostのuse_id一緒じゃないとだめだよね-->
-    
     <body>
         <h1 class="title">編集画面</h1>
         <div class="content">
@@ -21,12 +18,19 @@
                     <h2>味の感想や想い出</h2>
                     <input type='text' name='post[body]' value="{{ $post->body }}">
                 </div>
+                @if($post->images->isNotEmpty())
+                <div>
+                    @foreach($post->images as $image)
+                    <img src="{{ $image->image_url }}" alt="画像が読み込めません。">
+                    @endforeach
+                </div>
+                @endif
                 <input type="submit" value="保存">
             </form>
             <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
                 @csrf
                 @method('DELETE')
-                <button type="button" onclick="deletePost{{ $post->id }}">削除</button>
+                <button type="button" onclick="deletePost({{ $post->id }})">削除</button>
             </form>
         </div>
         <div class="footer">
