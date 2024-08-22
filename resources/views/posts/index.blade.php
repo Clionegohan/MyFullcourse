@@ -17,6 +17,13 @@
                         <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
                     </h2>
                     <p class='body'>{{ $post->body }}</p>
+                    @if($post->images->isNotEmpty())
+                    <div class='image'>
+                        @foreach($post->images as $image)
+                        <img src="{{ $image->image_url }}" alt="画像が読み込めません。">
+                        @endforeach
+                    </div>
+                    @endif
                 </div>
             @endforeach
         </div>

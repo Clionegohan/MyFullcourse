@@ -10,12 +10,11 @@ class PostRequest extends FormRequest
      * Determine if the user is authorized to make this request.
      */
      
-     /*
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
-    */
+    
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,9 +23,17 @@ class PostRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'post.title' => 'required|string|max:100',
-            'post.body' => 'required|string|max:400',
+        $rules = [
+            'post.title' => 'sometimes|required|string|max:100',
+            'post.body' => 'sometimes|required|string|max:400',
+            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|array|max:4',
         ];
+        
+        if ($this->isMethod('post')) {
+            $rules['post.category_id'] = 'required|exists:categories,id';
+        }
+        
+        return $rules;
     }
 }
