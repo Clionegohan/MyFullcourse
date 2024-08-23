@@ -27,7 +27,7 @@
             @endif
         </div>
         @if(auth()->user()->id === $post->user_id)
-        <div class="edit"><a href="/posts/{{ $post->id }}/edit">edit</a></div>
+        <div class="edit"><a href="/posts/{{ $post->id }}/edit">edit</div>
         @endif
         <div class="footer">
             <a href="/">戻る</a>
