@@ -12,6 +12,7 @@
             <div class="category">
                 <h2>Category</h2>
                 <select name="post[category_id]">
+                    <option value="" disabled selected>カテゴリを選択してください。</option>
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
@@ -28,29 +29,11 @@
                 <p class="body_error" style="color:red">{{ $errors->first('post.body') }}</p>
             </div>
             <div class="image">
-                <div id="image_fields">
-                    <input type="file" name="image[]" class="image-input" onchange="addImageField(this)">                    
-                </div>
+                <input type="file" name="files[]" multiple> 
                 <p class="image_error" style="color:red">{{ $errors->first('image') }}</p>
             </div>
             <input type="submit" value="投稿"/>
         </form>
         <div class="back">[<a href="/">戻る</a>]</div>
-        <script>
-            function addImageField(input) {
-                var imageFields = document.querySelectorAll('.image-input').length;
-                
-                if (imageFields < 4) {
-                    var newField = document.createElement('input');
-                    newField.type = 'file';
-                    newField.name = 'image[]';
-                    newField.className = 'image-input';
-                    newField.onchange = function() {
-                        addImageField(this);
-                    };
-                }
-                document.getElementById('image_fields').appendchild(newField);
-            }
-        </script>
     </body>
 </html>

@@ -26,8 +26,8 @@ class PostRequest extends FormRequest
         $rules = [
             'post.title' => 'sometimes|required|string|max:100',
             'post.body' => 'sometimes|required|string|max:400',
-            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image' => 'nullable|array|max:4',
+            'files.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'files' => 'nullable|array|max:4',
         ];
         
         if ($this->isMethod('post')) {
