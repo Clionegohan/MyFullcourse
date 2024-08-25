@@ -39,19 +39,18 @@ class PostController extends Controller
     public function store(Post $post, PostRequest $request)
     {
         $input = $request->input('post');
+        $user = auth()->user();
         
         $category_id = $input['category_id'];
         $category = Category::find($category_id);
         
         $judgementField = 'has_' . $category->name;
-        $user = auth()->user();
-        
         $judgement = Judgement::firstOrCreate(['user_id' => $user->id]);
-            
+        /*
         if ($judgement->$judgementField) {
             return redirect()->back()->withErrors(['category' =>'このカテゴリには既に投稿済みです。']);
         }
-        
+        */
         $judgement->update([$judgementField => 1]);
         
         $post->fill($input);
@@ -61,9 +60,11 @@ class PostController extends Controller
         if ($request->hasFile('files')) {
             $images = $request->file('files');    
             
+            /*
             if (count($images) > 4) {
                 return redirect()->back()->withErrors(['image' => '画像は最大4枚までアップロードできます。']);
             }
+            */
             
             DB::transaction(function () use ($images, $post) {
                 foreach ($images as $image) {
@@ -82,9 +83,9 @@ class PostController extends Controller
         
         $category = $post->category;
         $judgementField = 'has_' . $category->name;
-        $judgement = Judgement::wehre('user_id', $user->id)->first();
+        $judgement = Judgement::where('user_id', $user->id)->first();
         if ($judgement) {
-            $judgement->update([$judgementField = 0]);
+            $judgement->update([$judgementField => 0]);
         }
         
         $post->delete();

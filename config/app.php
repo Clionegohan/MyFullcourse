@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
 return [
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -30,6 +31,7 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -125,6 +127,8 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+    
+    'api_key' => env('API_KEY'),
 
     /*
     |--------------------------------------------------------------------------
