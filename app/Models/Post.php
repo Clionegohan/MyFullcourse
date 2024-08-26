@@ -19,10 +19,17 @@ class Post extends Model
         'latitude',
         'longitude',
     ];
-    
+    public function scopeOrderByCategory($query)
+    {
+        return $query->orderBy('category_id', 'asc');
+    }
     public function getPaginateByLimit(int $limit_count = 10)
     {
         return $this::with('category')->orderBy('updated_at', 'DESC')->paginate($limit_count);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
     public function category()
     {
