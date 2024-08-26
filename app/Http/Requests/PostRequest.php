@@ -29,8 +29,8 @@ class PostRequest extends FormRequest
             'files.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'files' => 'nullable|array|max:4',
             'post.address' => 'nullable|string|max:255',
-            'post.latitude' => 'nullable|numeric',
-            'post.longitude' => 'nullable|numeric',
+            'post.latitude' => 'nullable|numeric|between:-90,90',
+            'post.longitude' => 'nullable|numeric|between:-180,180',
         ];
         
         if ($this->isMethod('post')) {

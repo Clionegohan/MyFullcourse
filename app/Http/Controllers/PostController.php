@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Judgement;
+use App\Models\Like;
 use App\Http\Requests\PostRequest;
 use Cloudinary;
 
@@ -16,9 +17,6 @@ class PostController extends Controller
     public function index(Post $post)
     {
         $posts = $post->getPaginateByLimit();
-        foreach ($posts as $post) {
-            $images = $post->images;
-        }
         return view('posts.index')->with(['posts' => $posts]);
     }
     public function show(Post $post)
@@ -41,38 +39,28 @@ class PostController extends Controller
         $input = $request->input('post');
         $user = auth()->user();
         
-        $category_id = $input['category_id'];
-        $category = Category::find($category_id);
+        DB::transaction(function () use ($post, $input, $user, $request) {
         
-        $judgementField = 'has_' . $category->name;
-        $judgement = Judgement::firstOrCreate(['user_id' => $user->id]);
-        /*
-        if ($judgement->$judgementField) {
-            return redirect()->back()->withErrors(['category' =>'このカテゴリには既に投稿済みです。']);
-        }
-        */
-        $judgement->update([$judgementField => 1]);
-        
-        $post->fill($input);
-        $post->user_id = $user->id;
-        $post->save();
-        
-        if ($request->hasFile('files')) {
-            $images = $request->file('files');    
-            
-            /*
-            if (count($images) > 4) {
-                return redirect()->back()->withErrors(['image' => '画像は最大4枚までアップロードできます。']);
-            }
-            */
-            
-            DB::transaction(function () use ($images, $post) {
+            $category_id = $input['category_id'];
+            $category = Category::find($category_id);
+
+            $judgementField = 'has_' . $category->name;
+            $judgement = Judgement::firstOrCreate(['user_id' => $user->id]);
+            $judgement->update([$judgementField => 1]);
+
+            $post->fill($input);
+            $post->user_id = $user->id;
+            $post->save();
+
+            if ($request->hasFile('files')) {
+                $images = $request->file('files');
+
                 foreach ($images as $image) {
                     $image_url = Cloudinary::upload($image->getRealPath())->getSecurePath();
                     $post->images()->create(['image_url' => $image_url]);
                 }
-            });
-        }
+            }
+        });
         
         return redirect('/posts/' .$post->id);
     }
@@ -103,5 +91,18 @@ class PostController extends Controller
         $post->save();
 
         return redirect('/posts/' .$post->id);
+    }
+    public function like(Request $request, Post $post)
+    {
+        $user = auth()->user();
+        
+        if ($post->likes()->where('user_id', $user->id)->exists()) {
+        $post->likes()->where('user_id', $user->id)->delete();
+        } else {
+        $post->likes()->create(['user_id' => $user->id]);
+        }
+        
+        $likesCount = $post->likes()->count();
+        return response()->json(['success' => true, 'like_count' => $likesCount]);
     }
 }

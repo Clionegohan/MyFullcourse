@@ -34,6 +34,7 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::get('/posts/{post}', 'show')->name('show');
     Route::put('/posts/{post}', 'update')->name('update');
     Route::delete('/posts/{post}', 'delete')->name('delete');
+    Route::post('/like/{post}', 'like')->name('like');
 });
 
 Route::get('/categories/{category}', [CategoryController::class, 'index'])->middleware("auth");
