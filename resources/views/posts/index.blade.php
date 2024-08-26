@@ -9,10 +9,13 @@
     </head>
     <body>
         <a href="/posts/create">料理の共有</a>
-        <h1>Menu</h1>
+        <h1>みんなのMenu</h1>
         <div class='posts'>
             @foreach ($posts as $post)
                 <div class='post'>
+                    <h2 class="user">
+                        <a href="/users/{{ $post->user->id }}">{{ $post->user->name }}</a>
+                    </h2>
                     <a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
                     <h2 class='title'>
                         <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>

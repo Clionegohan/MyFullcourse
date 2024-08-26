@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -35,6 +36,10 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::put('/posts/{post}', 'update')->name('update');
     Route::delete('/posts/{post}', 'delete')->name('delete');
     Route::post('/like/{post}', 'like')->name('like');
+});
+
+Route::controller(UserController::class)->middleware(['auth'])->group(function(){
+    Route::get('/users/{user}', 'show')->name('show');
 });
 
 Route::get('/categories/{category}', [CategoryController::class, 'index'])->middleware("auth");

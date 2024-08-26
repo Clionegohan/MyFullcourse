@@ -3,8 +3,6 @@
     <head>
         <meta charset="utf-8">
         <title>Menu</title>
-        <!--都度適切な名前に変える必要あり？-->
-        <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
     <body>
@@ -12,7 +10,6 @@
         <h1 class="title">
             {{ $post->title }}
         </h1>
-        <a class="">{{ $post->category->name }}</a>
         <div class="content">
             <div class="content__post">
                 <h3>Menuの詳細</h3>

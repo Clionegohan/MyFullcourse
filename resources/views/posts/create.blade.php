@@ -44,7 +44,9 @@
             </div>
             <input type="submit" value="投稿"/>
         </form>
-        <div class="back">[<a href="/">戻る</a>]</div>
+        <div class="footer">
+            <a href="/">戻る</a>
+        </div>
         <script>
             function geocoderAddress() {
                 const address = document.getElementById('address').value;
