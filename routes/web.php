@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 
 
 /*
@@ -36,10 +37,16 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::put('/posts/{post}', 'update')->name('update');
     Route::delete('/posts/{post}', 'delete')->name('delete');
     Route::post('/like/{post}', 'like')->name('like');
+    Route::post('/posts/{post}/comment', 'comment')->name('comment');
 });
 
 Route::controller(UserController::class)->middleware(['auth'])->group(function(){
     Route::get('/users/{user}', 'show')->name('show');
+});
+
+Route::controller(CommentController::class)->middleware(['auth'])->group(function(){
+    Route::post('/comments', 'store')->name('comments.store');
+    Route::delete('/comments/{comment}', 'delete')->name('comments.delete');
 });
 
 Route::get('/categories/{category}', [CategoryController::class, 'index'])->middleware("auth");

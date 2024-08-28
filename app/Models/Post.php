@@ -10,7 +10,10 @@ class Post extends Model
 {
     use SoftDeletes;
     use HasFactory;
+    protected $table = 'posts';
+    
     protected $fillable = [
+        'user_id',
         'title',
         'body',
         'category_id',
@@ -27,6 +30,7 @@ class Post extends Model
     {
         return $this::with('category')->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
+    
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -43,6 +47,11 @@ class Post extends Model
     {
         return $this->hasMany(Like::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    
     public function isLikedByUser($user)
 {
     return $this->likes()->where('user_id', $user->id)->exists();

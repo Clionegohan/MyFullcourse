@@ -96,10 +96,12 @@ class PostController extends Controller
     {
         $user = auth()->user();
         
+        
+    //インデント汚い
         if ($post->likes()->where('user_id', $user->id)->exists()) {
-        $post->likes()->where('user_id', $user->id)->delete();
-        } else {
-        $post->likes()->create(['user_id' => $user->id]);
+            $post->likes()->where('user_id', $user->id)->delete();
+        }else{
+            $post->likes()->create(['user_id' => $user->id]);
         }
         
         $likesCount = $post->likes()->count();
