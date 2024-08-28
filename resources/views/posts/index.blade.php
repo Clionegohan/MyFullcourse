@@ -6,10 +6,19 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <style>
+            button.delete-btn {
+                background: none;
+                border: none;
+                color: brack;
+                cursor: pointer;
+            }
+        </style>
+        @vite('resources/css/app.css')
     </head>
     <body>
         <a href="/posts/create">料理の共有</a>
-        <h1>みんなのMenu</h1>
+        <h1 class="text-xs">みんなのMenu</h1>
         <div class='posts'>
             @foreach ($posts as $post)
                 <div class='post'>
@@ -39,6 +48,29 @@
                 </button>
                 <span class="like-count">{{ $post->likes_count }}</span>
                 </div>
+                @if($post->comments->isNotEmpty())
+                    <div class="comment">
+                        @foreach($post->comments as $comment)
+                            <p>{{ $comment->user->name}}</p>
+                            <p>{{ $comment->comment }}</p>
+                    
+                            @if (auth()->check() && auth()->user()->id === $comment->user_id)
+                                <form action="{{ route('comments.delete', $comment->id) }}" method="POST" onsubmit="return confirm('コメント削除します。よろしいですか？');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="delete-btn">x</button>
+                                </form>
+                            @endif
+                    
+                        @endforeach
+                    </div>
+                @endif
+                <form action="{{ route('comments.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="comment[post_id]" value="{{ $post->id }}">
+                    <textarea name="comment[body]" rows="3" placeholder="コメントを入力してください。"></textarea>
+                    <button type="submit">コメントを投稿</button>
+                </form>
             @endforeach
         </div>
         <div class='Paginate'>

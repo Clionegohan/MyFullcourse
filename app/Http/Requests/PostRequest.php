@@ -14,7 +14,6 @@ class PostRequest extends FormRequest
     {
         return true;
     }
-    
 
     /**
      * Get the validation rules that apply to the request.
