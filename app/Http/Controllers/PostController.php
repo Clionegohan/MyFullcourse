@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Judgement;
+use App\Models\Image;
 use App\Models\Like;
 use App\Http\Requests\PostRequest;
 use Cloudinary;
@@ -90,8 +91,25 @@ class PostController extends Controller
         $post->fill($input);
         $post->save();
 
+        if ($request->has('delete_images')) {
+            foreach ($request->input('delete_images') as $imageId) {
+                $image = Image::find($imageId); // 画像IDに基づいて画像を取得
+                if ($image) {
+                    $image->delete();
+                }
+            }
+        }
+    
+        if ($request->hasFile('new_images')) {
+            foreach ($request->file('new_images') as $newImage) {
+                $image_url = Cloudinary::upload($newImage->getRealPath())->getSecurePath();
+                $post->images()->create(['image_url' => $image_url]);
+            }
+        }
+        
         return redirect('/posts/' .$post->id);
     }
+    
     public function like(Request $request, Post $post)
     {
         $user = auth()->user();

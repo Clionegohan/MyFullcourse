@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['verified'])->name('dashboard');
 
 Route::controller(PostController::class)->middleware(['auth'])->group(function(){
     Route::get('/', 'index')->name('index');
@@ -41,7 +41,10 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
 });
 
 Route::controller(UserController::class)->middleware(['auth'])->group(function(){
+    Route::get('/users/{user}/edit', 'edit')->name('users.edit');
     Route::get('/users/{user}', 'show')->name('show');
+    Route::patch('/users/{user}', 'update')->name('users.update');
+    
 });
 
 Route::controller(CommentController::class)->middleware(['auth'])->group(function(){
@@ -49,7 +52,7 @@ Route::controller(CommentController::class)->middleware(['auth'])->group(functio
     Route::delete('/comments/{comment}', 'delete')->name('comments.delete');
 });
 
-Route::get('/categories/{category}', [CategoryController::class, 'index'])->middleware("auth");
+Route::get('/categories/{category}', [CategoryController::class, 'index'])->middleware("auth")->name('categories.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

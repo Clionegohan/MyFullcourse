@@ -10,43 +10,49 @@
         <form action="/posts" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="category">
-                <h2>Category</h2>
                 @if($categories->isEmpty())
                     <p>カテゴリがありません。</p>
                 @else
                     <select name="post[category_id]">
                         <option value="" disabled selected>カテゴリを選択してください。</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name_jp }}</option>
+                            @endforeach
                     </select>
                 @endif
             </div>
+            
             <div class="title">
-                <h2>Menu</h2>
-                <input type="text" name="post[title]" placeholder="料理名" value="{{ old('post.title') }}"/>
+                <h2>料理名</h2>
+                <input type="text" name="post[title]" placeholder="どこで？誰が？などを書くといいかも！" value="{{ old('post.title') }}"/>
                 <p class="title_error" style="color:red">{{ $errors->first('post.title') }}</p>
             </div>
+            
             <div class="body">
                 <h2>あなたの思い出の料理</h2>
                 <textarea name="post[body]" placeholder="味の感想、料理の思い出をみんなと共有しよう！">{{ old('post.body') }}</textarea>
                 <p class="body_error" style="color:red">{{ $errors->first('post.body') }}</p>
             </div>
+            
             <div class="image">
                 <input type="file" name="files[]" multiple> 
                 <p class="image_error" style="color:red">{{ $errors->first('files') }}</p>
             </div>
+            
             <div class="map">
-                <h2>場所を選択または入力して下さい。</h2>
-                <input type="text" id="address" name="post[address]" placeholder="住所を入力" onblur="geocoderAddress()">
+                <h2>住所を入力して下さい。</h2>
+                <input type="text" id="address" name="post[address]" placeholder="必須じゃないよ！" onblur="geocoderAddress()">
                 <input type="hidden" id="latitude" name="post[latitude]">
                 <input type="hidden" id="longitude" name="post[longitude]">
             </div>
+            
             <input type="submit" value="投稿"/>
         </form>
+        
         <div class="footer">
             <a href="/">戻る</a>
         </div>
+        
         <script>
             function geocoderAddress() {
                 const address = document.getElementById('address').value;
