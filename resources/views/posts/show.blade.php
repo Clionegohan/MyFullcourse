@@ -6,7 +6,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
     <body>
-        <a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
+        <a href="/categories/{{ $post->category->id }}">{{ $post->category->name_jp }}</a>
         <h1 class="title">
             {{ $post->title }}
         </h1>
@@ -22,11 +22,18 @@
                 @endforeach
             </div>
             @endif
-        <div id="map" style="height:500px"></div>
+            <div class="map">
+                @if(!is_null($post->address))
+                    <div id="map" style="height:500px"></div>
+                @endif
+            </div>
         </div>
+        
+        <div class="edit">
         @if(auth()->user()->id === $post->user_id)
-        <div class="edit"><a href="/posts/{{ $post->id }}/edit">edit</div>
+        <a href="/posts/{{ $post->id }}/edit">edit</a>
         @endif
+        </div>
         <div class="footer">
             <a href="/">戻る</a>
         </div>
