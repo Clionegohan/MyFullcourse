@@ -6,7 +6,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
-
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +53,8 @@ Route::controller(CommentController::class)->middleware(['auth'])->group(functio
 });
 
 Route::get('/categories/{category}', [CategoryController::class, 'index'])->middleware("auth")->name('categories.index');
+
+Route::get('/about', [HomeController::class, 'about'])->middleware("auth")->name('about');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

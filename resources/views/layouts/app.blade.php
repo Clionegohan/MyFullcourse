@@ -11,9 +11,9 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-　　　　<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Noto+Serif+JP" rel="stylesheet">
         <!-- 子テンプレートで追加可能なCSS -->
         @yield('head')
         
@@ -26,10 +26,10 @@
 
             <!-- Page Heading -->
             <header class="text-gray-600 body-font">
-                <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+                <div class="container mx-auto flex flex-wrap p-5 md:flex-row items-center">
                     <a class="flex items-center title-font font-medium text-gray-900 mb-4 md:mb-0">
-                        <img src="{{ asset('storage/MyFullCourse_icon.png') }}" alt="MyFullCourse_icon Logo" class="w-16 h-16 rounded-full object-contain">
-                        <span class="ml-3 text-xl">MyFullCourse</span>
+                        <img src="{{ asset('storage/MyFullCourse_icon.png') }}" alt="MyFullCourse_icon Logo" class="w-16 h-16 rounded-full object-cover">
+                        <span class="ml-3 text-2xl" style="font-family: 'Caveat', cursive;">MyFullCourse</span>
                     </a>
                     <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
                         <a href="/" class="mr-5 hover:text-gray-900">みんなのフルコース</a>
@@ -37,7 +37,7 @@
                         <div class="relative group">
                             <button id="category-button" class="mr-5 hover:text-gray-900 focus:outline-none">カテゴリ</button>
                             <div id="category-menu" class="absolute hidden bg-white border mt-2 rounded shadow-lg z-10">
-                                @foreach($categories as $category)
+                                @foreach($headerCategories as $category)
                                     <a href="{{ route('categories.index', ['category' => $category->id]) }}"
                                     class="block px-6 py-3 hover:bg-gray-200 text-gray-700 text-lg"
                                     style="min-width: 200px;">
@@ -46,6 +46,8 @@
                                 @endforeach
                             </div>
                         </div>
+                        <a href="/users/{{ auth()->user()->id }}" class="mr-5 hover:text-gray-900">マイプロフィール</a>
+                        <a href="/about" class="mr-5 hover:text-gray-900">MyFullCourseについて</a>
                     </nav>
                 </div>
             </header>
@@ -69,8 +71,8 @@
                     });
                 });
             </script>
-
             <!-- Page Content -->
+            @yield('scripts')
             <main>
                 @yield('content')
             </main>

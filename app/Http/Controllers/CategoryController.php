@@ -9,7 +9,11 @@ class CategoryController extends Controller
 {
     public function index(Category $category)
     {
-        return view('categories.index')->with(['posts' => $category->getByCategory()]);
+        $posts = $category->getByCategory();
+        return view('categories.index')->with([
+            'posts' => $posts,
+            'category' => $category
+            ]);
     }
 }
 

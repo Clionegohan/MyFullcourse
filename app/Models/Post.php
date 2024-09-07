@@ -17,7 +17,6 @@ class Post extends Model
         'title',
         'body',
         'category_id',
-        'image_url',
         'address',
         'latitude',
         'longitude',
@@ -51,9 +50,8 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
-    
     public function isLikedByUser($user)
-{
-    return $this->likes()->where('user_id', $user->id)->exists();
-}
+    {
+        return $this->likes()->where('user_id', $user->id)->exists();
+    }
 }

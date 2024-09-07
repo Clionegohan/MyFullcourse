@@ -1,99 +1,178 @@
 @extends('layouts.app')
 
-@section('title', 'みんなのMenu') <!-- ページごとのタイトルを設定 -->
+@section('title', 'みんなのメニュー-MyFullCourse') <!-- ページごとのタイトルを設定 -->
 
 @section('head')
     <!-- ページ固有のCSSやその他の<head>内容を追加 -->
+    <script src="path/to/your/javascript.js" defer></script>
+
     <style>
+    
         button.delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
             background: none;
             border: none;
-            color: black; /* 修正: 'brack'から'black'へ */
+            color: red;
             cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .comment-container {
+            position: relative;
+            background-color: #f7fafc;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 8px;
         }
     </style>
 @endsection
 
 @section('content')
-    <a href="/posts/create">料理の共有</a>
-    <h1 class="text-xs">みんなのMenu</h1>
-    <div class='posts'>
-        @foreach ($posts as $post)
-            <div class='post'>
-                <div class='profile'>
-                    <a href="/users/{{ $post->user->id }}">{{ $post->user->name }}</a>
-                    @if ($post->user->profile_image === null)
-                        <img class="rounded-circle" src="{{ asset('storage/default.png') }}" alt="プロフィール画像" width="100" height="100">
-                    @else
-                        <img class="rounded-circle" src="{{ $post->user->profile_image }}" alt="プロフィール画像" width="100" height="100">
-                    @endif
-                </div>
-                <a href="/categories/{{ $post->category->id }}">{{ $post->category->name_jp }}</a>
-                <h2 class='title'>
-                    <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
-                </h2>
-                <p class='body'>{{ $post->body }}</p>
-                @if($post->images->isNotEmpty())
-                <div class='image'>
-                    @foreach($post->images as $image)
-                        <img src="{{ $image->image_url }}" alt="画像が読み込めません。">
-                    @endforeach
-                </div>
-                @endif
-            </div>
-            <div class='like'>
-                <button class="like-btn" data-post-id="{{ $post->id }}">
-                    @if($post->isLikedByUser(auth()->user()))
-                        <i class="fas fa-heart text-pink-500"></i>
-                    @else
-                        <i class="far fa-heart text-gray-400"></i>
-                    @endif
-                </button>
-                <span class="like-count">{{ $post->likes_count }}</span>
-            </div>
+    
+    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+        <!-- Title -->
+        <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
+            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white" style="font-family: 'Noto Serif JP', serif;">みんなのフルコース</h2>
+        </div>
+        
+        <!-- Grid -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach ($posts as $post)
+                <!-- Card -->
+                <div class="group flex flex-col focus:outline-none bg-white p-6 rounded-lg shadow-lg">
+                    <!-- User Information -->
+                    <div class="flex items-center mb-4">
+                        <a href="/users/{{ $post->user->id }}" class="flex items-center" style="color: #810947;">
+                            @if ($post->user->profile_image === null)
+                                <img class="w-12 h-12 rounded-full object-cover" src="{{ asset('storage/default.png') }}" alt="プロフィール画像">
+                            @else
+                                <img class="w-12 h-12 rounded-full object-cover" src="{{ $post->user->profile_image }}" alt="プロフィール画像">
+                            @endif
+                            <span class="ml-3 text-lg font-semibold">{{ $post->user->name }}</span>
+                        </a>
+                    </div>
 
-            @if($post->comments->isNotEmpty())
-                <div class="comment">
-                    @foreach($post->comments as $comment)
-                        <p>{{ $comment->user->name }}</p>
-                        <p>{{ $comment->comment }}</p>
+                    <!-- Category -->
+                    <a href="/categories/{{ $post->category->id }}" class="text-sm text-blue-600">{{ $post->category->name_jp }}</a>
 
-                        @if (auth()->check() && auth()->user()->id === $comment->user_id)
-                            <form action="{{ route('comments.delete', $comment->id) }}" method="POST" onsubmit="return confirm('コメント削除します。よろしいですか？');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="delete-btn">x</button>
-                            </form>
-                        @endif
-                    @endforeach
+                    <!-- Post Title -->
+                    <h2 class="mt-2 text-xl font-semibold">
+                        <a href="/posts/{{ $post->id }}"
+                           class="text-gray-800 group-hover:text-gray-600 dark:text-neutral-300 dark:group-hover:text-white"
+                           style="font-family: 'Noto Serif JP', serif;"
+                        >
+                            {{ $post->title }}
+                        </a>
+                    </h2>
+                    
+                    <!-- Images -->
+                    @if($post->images->isNotEmpty())
+                        <div class="mt-4 grid grid-cols-{{ min($post->images->count(), 2) }} gap-2">
+                            @foreach ($post->images as $image)
+                                <div class="relative">
+                                    <img src="{{ $image->image_url }}" alt="画像が読み込めません。" class="w-full h-full object-cover rounded-lg cursor-pointer" onclick="openModal('{{ $image->image_url }}')">
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <!-- モーダル -->
+                    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex items-center justify-center">
+                        <div class="relative">
+                            <button onclick="closeModal()" class="absolute top-0 right-0 mt-2 mr-2 text-white text-3xl">&times;</button>
+                            <img id="modalImage" src="" class="max-w-full max-h-screen object-contain">
+                        </div>
+                    </div>
+                    
+                    <!-- Body -->
+                    <p class="mt-2 text-gray-800 dark:text-neutral-200">{{ $post->body }}</p>
+
+                    <!-- Like Button -->
+                    <div class="mt-4 flex items-center">
+                        <button class="like-btn" data-post-id="{{ $post->id }}">
+                            @if($post->isLikedByUser(auth()->user()))
+                                <i class="fas fa-heart text-pink-500"></i>
+                            @else
+                                <i class="far fa-heart text-gray-400"></i>
+                            @endif
+                        </button>
+                        <span class="ml-2 text-sm text-gray-600">{{ $post->likes()->count() }}</span>
+                    </div>
+
+                    <!-- Comments Section -->
+                    @if($post->comments->isNotEmpty())
+                        <div class="mt-4">
+                            @foreach($post->comments as $comment)
+                                <div class="comment-container">
+                                    <div class="flex items-center mb-4">
+                                        <a href="/users/{{ $post->user->id }}" class="flex items-center" style="color: #810947;">
+                                        @if ($post->user->profile_image === null)
+                                            <img class="w-8 h-8 rounded-full object-cover" src="{{ asset('storage/default.png') }}" alt="プロフィール画像">
+                                        @else
+                                            <img class="w-8 h-8 rounded-full object-cover" src="{{ $post->user->profile_image }}" alt="プロフィール画像">
+                                        @endif
+                                            <span class="ml-3 text-lg font-semibold">{{ $post->user->name }}</span>
+                                        </a>
+                                    </div>
+                                    
+                                    <!--p class="font-semibold">{{ $comment->user->name }}</p-->
+                                    <p class="text-sm">{{ $comment->comment }}</p>
+
+                                    @if (auth()->check() && auth()->user()->id === $comment->user_id)
+                                        <form action="{{ route('comments.delete', $comment->id) }}" method="POST" onsubmit="return confirm('コメント削除します。よろしいですか？');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="delete-btn">x</button>
+                                        </form>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <!-- Comment Form -->
+                    <form action="{{ route('comments.store') }}" method="POST" class="mt-4">
+                        @csrf
+                        <input type="hidden" name="comment[post_id]" value="{{ $post->id }}">
+                        <textarea name="comment[body]" rows="3" class="w-full p-2 border rounded-lg" placeholder="コメントを入力してください。"></textarea>
+                        <button type="submit" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg">コメントを投稿</button>
+                    </form>
                 </div>
-            @endif
-            <form action="{{ route('comments.store') }}" method="POST">
-                @csrf
-                <input type="hidden" name="comment[post_id]" value="{{ $post->id }}">
-                <textarea name="comment[body]" rows="3" placeholder="コメントを入力してください。"></textarea>
-                <button type="submit">コメントを投稿</button>
-            </form>
-        @endforeach
+                <!-- End Card -->
+            @endforeach
+        </div>
+        <!-- End Grid -->
     </div>
-    <div class='Paginate'>
+
+    <!-- Pagination -->
+    <div class='Paginate mt-10'>
         {{ $posts->links() }}
     </div>
 @endsection
 
+
 @section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.like-btn').forEach(function(button) {
-                button.addEventListener('click', function() {
+            console.log('DOMContentLoaded event fired');
 
+            document.querySelectorAll('.like-btn').forEach(function(button) {
+                console.log('Button found:', button);
+                
+                button.addEventListener('click', function() {
                     console.log('Like button clicked');
 
                     var postId = this.getAttribute('data-post-id');
                     var icon = this.querySelector('i');
                     var likeCountSpan = this.nextElementSibling;
 
-                    fetch('/like/' + postId, {
+                    console.log('postId:', postId);
+                    console.log('icon:', icon);
+                    console.log('likeCountSpan:', likeCountSpan);
+
+                    fetch(`/like/${postId}`,{
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -103,7 +182,6 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-
                         console.log('Server response:', data);
 
                         if (data.success) {
@@ -115,10 +193,33 @@
 
                             // いいね数を更新
                             likeCountSpan.textContent = data.like_count;
+                        } else {
+                            console.error('Like request failed:', data);
                         }
                     })
-                    .catch(error => console.error('Error:', error));
+                    .catch(error => console.error('Fetch error:', error));
                 });
+            });
+
+            // 画像クリック時にモーダル表示
+            function openModal(imageUrl) {
+                document.getElementById('modalImage').src = imageUrl;
+                document.getElementById('imageModal').classList.remove('hidden');
+            }
+
+            function closeModal() {
+                document.getElementById('imageModal').classList.add('hidden');
+            }
+
+            document.querySelectorAll('.group img').forEach(function(img) {
+                img.addEventListener('click', function() {
+                    openModal(this.src);
+                });
+            });
+
+            document.getElementById('imageModal').addEventListener('click', closeModal);
+            document.getElementById('modalImage').addEventListener('click', function(event) {
+                event.stopPropagation();
             });
         });
     </script>
