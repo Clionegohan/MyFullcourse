@@ -23,7 +23,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $images = $post->images;
-        return view('posts.show', compact('post', 'images'));
+        $isLikedByUser = auth()->user()->likes()->where('post_id', $post->id)->exists();
+        return view('posts.show', compact('post', 'images', 'isLikedByUser'));
     }
     public function create(Category $category){
         $user = auth()->user();
@@ -110,19 +111,18 @@ class PostController extends Controller
         return redirect('/posts/' .$post->id);
     }
     
-    public function like(Request $request, Post $post)
+    public function like(Post $post)
     {
         $user = auth()->user();
-        
-        
-    //インデント汚い
-        if ($post->likes()->where('user_id', $user->id)->exists()) {
-            $post->likes()->where('user_id', $user->id)->delete();
+        $like = $post->likes()->where('user_id', $user->id);
+
+        if ($like->exists()) {
+            $like->delete();
         }else{
             $post->likes()->create(['user_id' => $user->id]);
         }
-        
         $likesCount = $post->likes()->count();
+        
         return response()->json(['success' => true, 'like_count' => $likesCount]);
     }
 }
