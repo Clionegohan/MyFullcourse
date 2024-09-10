@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
-
+use App\Http\Controllers\LikeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,6 +59,10 @@ Route::get('/about', [HomeController::class, 'about'])->middleware("auth")->name
 
 Route::controller(SearchController::class)->middleware(['auth'])->group(function(){
     Route::get('/search', 'search')->name('search');
+});
+
+Route::controller(LikeController::class)->middleware(['auth'])->group(function(){
+    Route::get('/likes', 'index')->name('likes.index');
 });
 
 Route::middleware('auth')->group(function () {

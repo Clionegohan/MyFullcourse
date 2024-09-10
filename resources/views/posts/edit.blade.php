@@ -42,7 +42,7 @@
             
             <div class='content__body mb-6'>
                 <label for="body" class="block mb-2 text-sm font-medium text-gray-900">味の感想や想い出</label>
-                <input type='text' name='post[body]' id="body" value="{{ $post->body }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+                <textarea name='post[body]' id="body" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">{{ old('post.body', $post->body) }}</textarea>
             </div>
             
             <div class="current-images mb-6">
