@@ -27,7 +27,7 @@
             <!-- Page Heading -->
             <header class="text-gray-600 body-font">
                 <div class="container mx-auto flex flex-wrap p-5 md:flex-row items-center">
-                    <a class="flex items-center title-font font-medium text-gray-900 mb-4 md:mb-0">
+                    <a href="/" class="flex items-center title-font font-medium text-gray-900 mb-4 md:mb-0">
                         <img src="{{ asset('storage/MyFullCourse_icon.png') }}" alt="MyFullCourse_icon Logo" class="w-16 h-16 rounded-full object-cover">
                         <span class="ml-3 text-2xl" style="font-family: 'Caveat', cursive;">MyFullCourse</span>
                     </a>
@@ -39,15 +39,28 @@
                             <div id="category-menu" class="absolute hidden bg-white border mt-2 rounded shadow-lg z-10">
                                 @foreach($headerCategories as $category)
                                     <a href="{{ route('categories.index', ['category' => $category->id]) }}"
-                                    class="block px-6 py-3 hover:bg-gray-200 text-gray-700 text-lg"
-                                    style="min-width: 200px;">
-                                        {{ $category->name_jp }}
+                                       class="block px-6 py-3 hover:bg-gray-200 text-gray-700 text-lg"
+                                       style="min-width: 200px;">
+                                       {{ $category->name_jp }}
                                     </a>
                                 @endforeach
                             </div>
                         </div>
                         <a href="/users/{{ auth()->user()->id }}" class="mr-5 hover:text-gray-900">マイプロフィール</a>
                         <a href="/about" class="mr-5 hover:text-gray-900">MyFullCourseについて</a>
+                        
+                        <!-- 検索ボックス -->
+                        @if (!isset($hideSearchBox) || !$hideSearchBox)
+                            <div class="absolute top-0 right-0 mt-4 mr-4">
+                                <form action="{{ route('search') }}" method="GET" class="flex">
+                                    <input type="text" name="word" value="{{ request()->input('word') }}" placeholder="検索ワードを入力" class="border p-1 w-40 rounded-lg">
+                                    <button type="submit" class="ml-2 bg-pink-300 hover:bg-pink-400 text-white py-1 px-2 rounded-lg">
+                                        <i class="fas fa-search text-white"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
+
                     </nav>
                 </div>
             </header>

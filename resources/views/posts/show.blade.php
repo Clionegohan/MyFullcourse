@@ -25,7 +25,8 @@
         <!-- 投稿の詳細内容 -->
         <div class="mt-6 bg-white p-6 rounded-lg shadow-lg">
             <div class="content__post">
-                <p class="mt-2 text-gray-800 dark:text-neutral-200">{{ $post->body }}</p>
+                <p class="mb-4 text-lg text-gray-900 dark:text-white">料理の感想：</p>
+                <p class="text-base text-gray-700 dark:text-gray-300 leading-relaxed text-left">{{ $post->body }}</p>
             </div>
             
             <!-- 画像表示 -->

@@ -121,5 +121,8 @@
             <a href="/" class="text-blue-500 hover:underline">戻る</a>
         </div>
     </div>
+    @php
+        $hideSearchBox = true;
+    @endphp
 @endsection
 
