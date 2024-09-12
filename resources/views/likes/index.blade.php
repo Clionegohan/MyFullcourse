@@ -1,15 +1,25 @@
 @extends('layouts.app')
 
-@section('title', $category->name_jp . '-MyFullCourse')
+@section('title', 'お気に入り-MyFullCourse')
+
+@section('head')
+    <!-- ページ固有のCSSやその他の<head>内容を追加 -->
+    <script src="path/to/your/javascript.js" defer></script>
+@endsection
 
 @section('content')
-
+    
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Title -->
         <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">{{ $category->name_jp }}</h2>
+            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">お気に入り</h2>
+            @if($posts->isEmpty())
+                <p class="text-center text-lg leading-loose">まだいいねした投稿がありません。</p>
+            @else
+                <p class="text-center text-lg leading-loose">{{ $posts->count() }}件見つかりました。</p>
+            @endif
         </div>
-
+        
         <!-- Grid -->
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($posts as $post)
@@ -32,14 +42,15 @@
 
                     <!-- Post Title -->
                     <h2 class="mt-2 text-xl font-semibold">
-                        <a href="/posts/{{ $post->id }}" class="text-gray-800 group-hover:text-gray-600 dark:text-neutral-300 dark:group-hover:text-white">
+                        <a href="/posts/{{ $post->id }}"
+                           class="text-gray-800 group-hover:text-gray-600 dark:text-neutral-300 dark:group-hover:text-white font-serif">
                             {{ $post->title }}
                         </a>
                     </h2>
                     
                     <!-- Images -->
                     @if($post->images->isNotEmpty())
-                        <div class="mt-4 grid grid-cols-{{ min($post->images->count(), 3) }} gap-2">
+                        <div class="mt-4 grid grid-cols-{{ min($post->images->count(), 2) }} gap-2">
                             @foreach ($post->images as $image)
                                 <div class="relative">
                                     <img src="{{ $image->image_url }}" alt="画像が読み込めません。" class="w-full h-full object-cover rounded-lg cursor-pointer" onclick="openModal('{{ $image->image_url }}')">
@@ -75,15 +86,24 @@
                     @if($post->comments->isNotEmpty())
                         <div class="mt-4">
                             @foreach($post->comments as $comment)
-                                <div class="bg-gray-100 p-3 rounded-lg mb-2">
-                                    <p class="font-semibold">{{ $comment->user->name }}</p>
+                                <div class="relative bg-[#f7fafc] p-4 rounded-lg mb-2">
+                                    <div class="flex items-center mb-4">
+                                        <a href="/users/{{ $post->user->id }}" class="flex items-center text-[#810947]">
+                                        @if ($post->user->profile_image === null)
+                                            <img class="w-8 h-8 rounded-full object-cover" src="{{ asset('storage/default.png') }}" alt="プロフィール画像">
+                                        @else
+                                            <img class="w-8 h-8 rounded-full object-cover" src="{{ $post->user->profile_image }}" alt="プロフィール画像">
+                                        @endif
+                                            <span class="ml-3 text-lg font-semibold">{{ $post->user->name }}</span>
+                                        </a>
+                                    </div>
                                     <p class="text-sm">{{ $comment->comment }}</p>
 
                                     @if (auth()->check() && auth()->user()->id === $comment->user_id)
-                                        <form action="{{ route('comments.delete', $comment->id) }}" method="POST" onsubmit="return confirm('コメント削除します。よろしいですか？');" class="mt-2">
+                                        <form action="{{ route('comments.delete', $comment->id) }}" method="POST" onsubmit="return confirm('コメント削除します。よろしいですか？');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-500 text-sm">x</button>
+                                            <button type="submit" class="absolute top-2 right-2 bg-transparent text-red-500 text-lg cursor-pointer">x</button>
                                         </form>
                                     @endif
                                 </div>
@@ -169,13 +189,16 @@
                 document.getElementById('imageModal').classList.add('hidden');
             }
 
-            document.querySelectorAll('.post img').forEach(function(img) {
+            document.querySelectorAll('.group img').forEach(function(img) {
                 img.addEventListener('click', function() {
                     openModal(this.src);
                 });
             });
 
             document.getElementById('imageModal').addEventListener('click', closeModal);
+            document.getElementById('modalImage').addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
         });
     </script>
 @endsection

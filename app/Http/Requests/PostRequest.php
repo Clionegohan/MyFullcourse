@@ -24,22 +24,18 @@ class PostRequest extends FormRequest
     {
         $post = $this->route('post');
 
-        // 新規投稿の場合（$postがnullの場合）や、既存の画像がない場合には、このバリデーションをスキップ
+        // 新規投稿、既存の画像がない場合このバリデーションをスキップ
         if (!$post || (!$this->hasFile('new_images') && !$this->filled('delete_images'))) {
             return;
         }
 
         $validator->after(function ($validator) use ($post) {
-            // 既存の画像の枚数を取得
             $existingImagesCount = $post->images()->count();
 
-            // 削除する画像の数を取得
             $deletedImagesCount = is_array($this->input('delete_images')) ? count($this->input('delete_images')) : 0;
 
-            // 新しくアップロードされる画像の数を取得
             $newImagesCount = count($this->file('new_images', []));
 
-            // 残る予定の画像の数を計算
             $remainingImagesCount = $existingImagesCount - $deletedImagesCount + $newImagesCount;
 
             if ($remainingImagesCount > 4) {

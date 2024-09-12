@@ -1,3 +1,6 @@
+<nav class="fixed top-0 right-0 p-4 z-50 w-full text-right">
+    <a href="{{ route('register') }}" class="text-black bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-md">新規登録</a>
+</nav>
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />

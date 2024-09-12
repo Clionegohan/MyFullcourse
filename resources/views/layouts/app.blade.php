@@ -21,13 +21,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
+        <div class="min-h-screen bg-white-100">
+            
+            {{--@include('layouts.navigation')--}}
+            
             <!-- Page Heading -->
             <header class="text-gray-600 body-font">
-                <div class="container mx-auto flex flex-wrap p-5 md:flex-row items-center">
-                    <a class="flex items-center title-font font-medium text-gray-900 mb-4 md:mb-0">
+                <div class="container mx-auto flex flex-wrap p-5 md:flex-row items-center justify-between">
+                    <a href="/" class="flex items-center title-font font-medium text-gray-900 mb-4 md:mb-0">
                         <img src="{{ asset('storage/MyFullCourse_icon.png') }}" alt="MyFullCourse_icon Logo" class="w-16 h-16 rounded-full object-cover">
                         <span class="ml-3 text-2xl" style="font-family: 'Caveat', cursive;">MyFullCourse</span>
                     </a>
@@ -36,21 +37,33 @@
                         <a href="/posts/create" class="mr-5 hover:text-gray-900">料理の投稿</a>
                         <div class="relative group">
                             <button id="category-button" class="mr-5 hover:text-gray-900 focus:outline-none">カテゴリ</button>
-                            <div id="category-menu" class="absolute hidden bg-white border mt-2 rounded shadow-lg z-10">
-                                @foreach($headerCategories as $category)
+                                <div id="category-menu" class="absolute hidden bg-white border mt-2 rounded shadow-lg z-10">
+                                    @foreach($headerCategories as $category)
                                     <a href="{{ route('categories.index', ['category' => $category->id]) }}"
-                                    class="block px-6 py-3 hover:bg-gray-200 text-gray-700 text-lg"
-                                    style="min-width: 200px;">
-                                        {{ $category->name_jp }}
+                                       class="block px-6 py-3 hover:bg-gray-200 text-gray-700 text-lg"
+                                       style="min-width: 200px;">
+                                       {{ $category->name_jp }}
                                     </a>
-                                @endforeach
-                            </div>
+                                    @endforeach
+                                </div>
                         </div>
                         <a href="/users/{{ auth()->user()->id }}" class="mr-5 hover:text-gray-900">マイプロフィール</a>
+                        <a href="/likes" class="mr-5 hover:text-gray-900">お気に入り</a>
                         <a href="/about" class="mr-5 hover:text-gray-900">MyFullCourseについて</a>
                     </nav>
+
+                    <!-- 検索ボックス -->
+                    @if (!isset($hideSearchBox) || !$hideSearchBox)
+                        <form action="{{ route('search') }}" method="GET" class="flex">
+                            <input type="text" name="word" value="{{ request()->input('word') }}" placeholder="検索ワードを入力" class="border p-1 w-40 rounded-lg">
+                            <button type="submit" class="ml-2 bg-pink-300 hover:bg-pink-400 text-white py-1 px-2 rounded-lg">
+                                <i class="fas fa-search text-white"></i>
+                            </button>
+                        </form>
+                    @endif
                 </div>
             </header>
+
             
             <!-- JavaScript -->
             <script>

@@ -1,20 +1,26 @@
 @extends('layouts.app')
 
-@section('title', $category->name_jp . '-MyFullCourse')
+@section('title', $keyword . 'の検索結果-MyFullCourse')
 
 @section('content')
-
+    
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Title -->
         <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">{{ $category->name_jp }}</h2>
+            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white leading-loose font-serif">
+                「{{ $keyword }}」の検索結果
+            </h2>
+            @if($posts->isEmpty())
+                <p class="text-center text-lg leading-loose">該当する投稿はありませんでした。</p>
+            @else
+                <p class="text-center text-lg leading-loose">{{ $posts->count() }}件見つかりました。</p>
         </div>
-
+        
         <!-- Grid -->
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($posts as $post)
                 <!-- Card -->
-                <div class="group flex flex-col focus:outline-none bg-white p-6 rounded-lg shadow-lg">
+                <div class="group flex flex-col bg-white p-6 rounded-lg shadow-lg">
                     <!-- User Information -->
                     <div class="flex items-center mb-4">
                         <a href="/users/{{ $post->user->id }}" class="flex items-center text-[#810947]">
@@ -32,14 +38,14 @@
 
                     <!-- Post Title -->
                     <h2 class="mt-2 text-xl font-semibold">
-                        <a href="/posts/{{ $post->id }}" class="text-gray-800 group-hover:text-gray-600 dark:text-neutral-300 dark:group-hover:text-white">
+                        <a href="/posts/{{ $post->id }}" class="text-gray-800 group-hover:text-gray-600 dark:text-neutral-300 dark:group-hover:text-white font-serif">
                             {{ $post->title }}
                         </a>
                     </h2>
                     
                     <!-- Images -->
                     @if($post->images->isNotEmpty())
-                        <div class="mt-4 grid grid-cols-{{ min($post->images->count(), 3) }} gap-2">
+                        <div class="mt-4 grid grid-cols-{{ min($post->images->count(), 2) }} gap-2">
                             @foreach ($post->images as $image)
                                 <div class="relative">
                                     <img src="{{ $image->image_url }}" alt="画像が読み込めません。" class="w-full h-full object-cover rounded-lg cursor-pointer" onclick="openModal('{{ $image->image_url }}')">
@@ -47,7 +53,7 @@
                             @endforeach
                         </div>
                     @endif
-
+  
                     <!-- モーダル -->
                     <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex items-center justify-center">
                         <div class="relative">
@@ -55,7 +61,7 @@
                             <img id="modalImage" src="" class="max-w-full max-h-screen object-contain">
                         </div>
                     </div>
-                    
+                     
                     <!-- Body -->
                     <p class="mt-2 text-gray-800 dark:text-neutral-200">{{ $post->body }}</p>
 
@@ -76,14 +82,24 @@
                         <div class="mt-4">
                             @foreach($post->comments as $comment)
                                 <div class="bg-gray-100 p-3 rounded-lg mb-2">
-                                    <p class="font-semibold">{{ $comment->user->name }}</p>
+                                    <div class="flex items-center mb-4">
+                                        <a href="/users/{{ $post->user->id }}" class="flex items-center text-[#810947]">
+                                            @if ($post->user->profile_image === null)
+                                                <img class="w-8 h-8 rounded-full object-cover" src="{{ asset('storage/default.png') }}" alt="プロフィール画像">
+                                            @else
+                                                <img class="w-8 h-8 rounded-full object-cover" src="{{ $post->user->profile_image }}" alt="プロフィール画像">
+                                            @endif
+                                            <span class="ml-3 text-lg font-semibold">{{ $post->user->name }}</span>
+                                        </a>
+                                    </div>
+                                    
                                     <p class="text-sm">{{ $comment->comment }}</p>
 
                                     @if (auth()->check() && auth()->user()->id === $comment->user_id)
-                                        <form action="{{ route('comments.delete', $comment->id) }}" method="POST" onsubmit="return confirm('コメント削除します。よろしいですか？');" class="mt-2">
+                                        <form action="{{ route('comments.delete', $comment->id) }}" method="POST" onsubmit="return confirm('コメント削除します。よろしいですか？');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-500 text-sm">x</button>
+                                            <button type="submit" class="absolute top-2 right-2 text-red-500">x</button>
                                         </form>
                                     @endif
                                 </div>
@@ -99,8 +115,8 @@
                         <button type="submit" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg">コメントを投稿</button>
                     </form>
                 </div>
-                <!-- End Card -->
             @endforeach
+        @endif
         </div>
         <!-- End Grid -->
     </div>
@@ -110,6 +126,7 @@
         {{ $posts->links() }}
     </div>
 @endsection
+
 
 @section('scripts')
     <script>
@@ -169,13 +186,16 @@
                 document.getElementById('imageModal').classList.add('hidden');
             }
 
-            document.querySelectorAll('.post img').forEach(function(img) {
+            document.querySelectorAll('.group img').forEach(function(img) {
                 img.addEventListener('click', function() {
                     openModal(this.src);
                 });
             });
 
             document.getElementById('imageModal').addEventListener('click', closeModal);
+            document.getElementById('modalImage').addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
         });
     </script>
 @endsection

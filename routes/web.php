@@ -7,7 +7,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\LikeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,8 +37,6 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::get('/posts/{post}', 'show')->name('show');
     Route::put('/posts/{post}', 'update')->name('update');
     Route::delete('/posts/{post}', 'delete')->name('delete');
-    Route::post('/like/{post}', 'like')->name('like');
-    Route::post('/posts/{post}/comment', 'comment')->name('comment');
 });
 
 Route::controller(UserController::class)->middleware(['auth'])->group(function(){
@@ -55,6 +54,16 @@ Route::controller(CommentController::class)->middleware(['auth'])->group(functio
 Route::get('/categories/{category}', [CategoryController::class, 'index'])->middleware("auth")->name('categories.index');
 
 Route::get('/about', [HomeController::class, 'about'])->middleware("auth")->name('about');
+
+Route::controller(SearchController::class)->middleware(['auth'])->group(function(){
+    Route::get('/search', 'search')->name('search');
+});
+
+Route::controller(LikeController::class)->middleware(['auth'])->group(function(){
+    Route::post('/like/{post}', 'like')->name('like.post');
+    Route::get('/likes', 'index')->name('likes.index');
+
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
