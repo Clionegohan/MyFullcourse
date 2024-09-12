@@ -24,4 +24,18 @@ class LikeController extends Controller
         
         return view('likes.index', compact('posts'));
     }
+        public function like(Post $post)
+    {
+        $user = auth()->user();
+        $like = $post->likes()->where('user_id', $user->id);
+
+        if ($like->exists()) {
+            $like->delete();
+        }else{
+            $post->likes()->create(['user_id' => $user->id]);
+        }
+        $likesCount = $post->likes()->count();
+        
+        return response()->json(['success' => true, 'like_count' => $likesCount]);
+    }
 }

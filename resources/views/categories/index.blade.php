@@ -7,10 +7,9 @@
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Title -->
         <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white" style="font-family: 'Noto Serif JP', serif;">{{ $category->name_jp}}</h2>
+            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">{{ $category->name_jp }}</h2>
         </div>
 
-         
         <!-- Grid -->
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($posts as $post)
@@ -18,7 +17,7 @@
                 <div class="group flex flex-col focus:outline-none bg-white p-6 rounded-lg shadow-lg">
                     <!-- User Information -->
                     <div class="flex items-center mb-4">
-                        <a href="/users/{{ $post->user->id }}" class="flex items-center" style="color: #810947;">
+                        <a href="/users/{{ $post->user->id }}" class="flex items-center text-[#810947]">
                             @if ($post->user->profile_image === null)
                                 <img class="w-12 h-12 rounded-full object-cover" src="{{ asset('storage/default.png') }}" alt="プロフィール画像">
                             @else
@@ -107,11 +106,10 @@
     </div>
 
     <!-- Pagination -->
-    <div class='Paginate mt-10'>
+    <div class="mt-10">
         {{ $posts->links() }}
     </div>
 @endsection
-
 
 @section('scripts')
     <script>

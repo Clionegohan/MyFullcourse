@@ -1,32 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'お気に入り-MyFullCourse') <!-- ページごとのタイトルを設定 -->
+@section('title', 'お気に入り-MyFullCourse')
 
 @section('head')
     <!-- ページ固有のCSSやその他の<head>内容を追加 -->
     <script src="path/to/your/javascript.js" defer></script>
-
-    <style>
-    
-        button.delete-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: none;
-            border: none;
-            color: red;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .comment-container {
-            position: relative;
-            background-color: #f7fafc;
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-        }
-    </style>
 @endsection
 
 @section('content')
@@ -34,7 +12,7 @@
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Title -->
         <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white" style="font-family: 'Noto Serif JP', serif;">お気に入り</h2>
+            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">お気に入り</h2>
             @if($posts->isEmpty())
                 <p class="text-center text-lg leading-loose">まだいいねした投稿がありません。</p>
             @else
@@ -49,7 +27,7 @@
                 <div class="group flex flex-col focus:outline-none bg-white p-6 rounded-lg shadow-lg">
                     <!-- User Information -->
                     <div class="flex items-center mb-4">
-                        <a href="/users/{{ $post->user->id }}" class="flex items-center" style="color: #810947;">
+                        <a href="/users/{{ $post->user->id }}" class="flex items-center text-[#810947]">
                             @if ($post->user->profile_image === null)
                                 <img class="w-12 h-12 rounded-full object-cover" src="{{ asset('storage/default.png') }}" alt="プロフィール画像">
                             @else
@@ -65,9 +43,7 @@
                     <!-- Post Title -->
                     <h2 class="mt-2 text-xl font-semibold">
                         <a href="/posts/{{ $post->id }}"
-                           class="text-gray-800 group-hover:text-gray-600 dark:text-neutral-300 dark:group-hover:text-white"
-                           style="font-family: 'Noto Serif JP', serif;"
-                        >
+                           class="text-gray-800 group-hover:text-gray-600 dark:text-neutral-300 dark:group-hover:text-white font-serif">
                             {{ $post->title }}
                         </a>
                     </h2>
@@ -110,9 +86,9 @@
                     @if($post->comments->isNotEmpty())
                         <div class="mt-4">
                             @foreach($post->comments as $comment)
-                                <div class="comment-container">
+                                <div class="relative bg-[#f7fafc] p-4 rounded-lg mb-2">
                                     <div class="flex items-center mb-4">
-                                        <a href="/users/{{ $post->user->id }}" class="flex items-center" style="color: #810947;">
+                                        <a href="/users/{{ $post->user->id }}" class="flex items-center text-[#810947]">
                                         @if ($post->user->profile_image === null)
                                             <img class="w-8 h-8 rounded-full object-cover" src="{{ asset('storage/default.png') }}" alt="プロフィール画像">
                                         @else
@@ -121,16 +97,13 @@
                                             <span class="ml-3 text-lg font-semibold">{{ $post->user->name }}</span>
                                         </a>
                                     </div>
-                                    
-                                    <!--p class="font-semibold">
-                                    {{ $comment->user->name }}</p-->
                                     <p class="text-sm">{{ $comment->comment }}</p>
 
                                     @if (auth()->check() && auth()->user()->id === $comment->user_id)
                                         <form action="{{ route('comments.delete', $comment->id) }}" method="POST" onsubmit="return confirm('コメント削除します。よろしいですか？');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="delete-btn">x</button>
+                                            <button type="submit" class="absolute top-2 right-2 bg-transparent text-red-500 text-lg cursor-pointer">x</button>
                                         </form>
                                     @endif
                                 </div>
@@ -153,11 +126,10 @@
     </div>
 
     <!-- Pagination -->
-    <div class='Paginate mt-10'>
+    <div class="mt-10">
         {{ $posts->links() }}
     </div>
 @endsection
-
 
 @section('scripts')
     <script>

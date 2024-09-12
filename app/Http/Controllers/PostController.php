@@ -20,22 +20,18 @@ class PostController extends Controller
         $posts = $post->getPaginateByLimit();
         return view('posts.index')->with(['posts' => $posts]);
     }
-    public function show(Post $post)
+    
+    public function create(Category $category)
     {
-        $images = $post->images;
-        $isLikedByUser = auth()->user()->likes()->where('post_id', $post->id)->exists();
-        return view('posts.show', compact('post', 'images', 'isLikedByUser'));
-    }
-    public function create(Category $category){
         $user = auth()->user();
         $judgement = Judgement::where('user_id', $user->id)->first();
         $categories = Category::all()->filter(function ($category) use ($judgement) {
             $judgementField = 'has_' . $category->name;
             return !$judgement || !$judgement->$judgementField;
         });
-        
         return view('posts.create')->with(['categories' => $categories]);
     }
+    
     public function store(Post $post, PostRequest $request)
     {
         $input = $request->input('post');
@@ -63,8 +59,14 @@ class PostController extends Controller
                 }
             }
         });
-        
         return redirect('/posts/' .$post->id);
+    }
+    
+    public function show(Post $post)
+    {
+        $images = $post->images;
+        $isLikedByUser = auth()->user()->likes()->where('post_id', $post->id)->exists();
+        return view('posts.show', compact('post', 'images', 'isLikedByUser'));
     }
     
     public function delete(Post $post)
@@ -82,10 +84,11 @@ class PostController extends Controller
         return redirect('/');
     }
     
-        public function edit(Post $post)
+    public function edit(Post $post)
     {
         return view('posts.edit')->with(['post' => $post]);
     }
+    
     public function update(PostRequest $request, Post $post)
     {
         $input = $request->input('post');
@@ -100,29 +103,13 @@ class PostController extends Controller
                 }
             }
         }
-    
+        
         if ($request->hasFile('new_images')) {
             foreach ($request->file('new_images') as $newImage) {
                 $image_url = Cloudinary::upload($newImage->getRealPath())->getSecurePath();
                 $post->images()->create(['image_url' => $image_url]);
             }
         }
-        
         return redirect('/posts/' .$post->id);
-    }
-    
-    public function like(Post $post)
-    {
-        $user = auth()->user();
-        $like = $post->likes()->where('user_id', $user->id);
-
-        if ($like->exists()) {
-            $like->delete();
-        }else{
-            $post->likes()->create(['user_id' => $user->id]);
-        }
-        $likesCount = $post->likes()->count();
-        
-        return response()->json(['success' => true, 'like_count' => $likesCount]);
     }
 }

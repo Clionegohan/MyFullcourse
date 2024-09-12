@@ -60,7 +60,11 @@
                                 @if ($post = $posts->get($category->id))
                                     <div class='post'>
                                         <h3 class='title text-lg font-medium'>
-                                            <a href="/posts/{{ $post->id }}" class="text-xl hover:underline font-semibold mb-2" style="font-family: 'Noto Serif JP', serif; margin-top: 20px;">{{ $post->title }}</a>
+                                            <a href="/posts/{{ $post->id }}" 
+                                               class="text-xl hover:underline font-semibold mb-2" 
+                                               style="font-family: 'Noto Serif JP', serif; margin-top: 20px;">
+                                               {{ $post->title }}
+                                            </a>
                                         </h3>
                                     </div>
                                 @else

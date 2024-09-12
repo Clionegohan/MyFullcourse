@@ -37,8 +37,6 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::get('/posts/{post}', 'show')->name('show');
     Route::put('/posts/{post}', 'update')->name('update');
     Route::delete('/posts/{post}', 'delete')->name('delete');
-    Route::post('/like/{post}', 'like')->name('like');
-    Route::post('/posts/{post}/comment', 'comment')->name('comment');
 });
 
 Route::controller(UserController::class)->middleware(['auth'])->group(function(){
@@ -62,7 +60,9 @@ Route::controller(SearchController::class)->middleware(['auth'])->group(function
 });
 
 Route::controller(LikeController::class)->middleware(['auth'])->group(function(){
+    Route::post('/like/{post}', 'like')->name('like.post');
     Route::get('/likes', 'index')->name('likes.index');
+
 });
 
 Route::middleware('auth')->group(function () {

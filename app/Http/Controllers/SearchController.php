@@ -23,6 +23,9 @@ class SearchController extends Controller
         $posts = Post::where('title', 'like', "%{$keyword}%")
                      ->orWhere('body', 'like', "%{$keyword}%")
                      ->orWhere('address', 'like', "%{$keyword}%")
+                     ->orWhereHas('user', function ($query) use ($keyword){
+                         $query->where('name', 'like', "%{$keyword}%");
+                     })
                      ->paginate(10);
                      
         return view('search.index', compact('posts', 'keyword'));

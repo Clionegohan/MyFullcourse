@@ -10,18 +10,18 @@
             @csrf
             @method('PATCH')
 
-            <div class='profile mb-8'>
-                <label for="name" class="block text-lg font-medium text-gray-700 mb-2">ニックネーム</label>
-                <input type='text' name='name' id="name" value="{{ $user->name }}" 
+            <div class="mb-8">
+                <label for="name" class="block text-lg font-medium text-gray-700 mb-2 text-center">ニックネーム</label>
+                <input type="text" name="name" id="name" value="{{ $user->name }}" 
                        class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-indigo-200"/>
  
                 <div class="mt-6 text-center">
                     @if ($user->profile_image === null)
                         <img class="w-24 h-24 rounded-full object-cover mx-auto" src="{{ asset('storage/default.png') }}" 
-                             alt="プロフィール画像" width="150" height="150" id="profile-image-preview"/>
+                             alt="プロフィール画像" id="profile-image-preview"/>
                     @else
                         <img class="w-24 h-24 rounded-full object-cover mx-auto" src="{{ $user->profile_image }}" 
-                             alt="プロフィール画像" width="150" height="150" id="profile-image-preview"/>
+                             alt="プロフィール画像" id="profile-image-preview"/>
                     @endif
                 </div>
 
@@ -36,6 +36,16 @@
                 </button>
             </div>
         </form>
+
+        <!-- ログアウトボタン -->
+        <div class="text-center mt-6">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600">
+                    ログアウト
+                </button>
+            </form>
+        </div>
  
         <div class="mt-8 text-center">
             <a href="/" class="text-indigo-500 hover:underline">戻る</a>
