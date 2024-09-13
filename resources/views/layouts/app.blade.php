@@ -29,7 +29,7 @@
             <header class="text-gray-600 body-font">
                 <div class="container mx-auto flex flex-wrap p-5 md:flex-row items-center justify-between">
                     <a href="/" class="flex items-center title-font font-medium text-gray-900 mb-4 md:mb-0">
-                        <img src="https://res.cloudinary.com/dem5z47a6/image/upload/v1726224859/MyFullCourse_appicon_yjz8g1.png" alt="MyFullCourse_icon Logo" class="w-16 h-16 rounded-full object-cover">
+                        <img src="https://res.cloudinary.com/dem5z47a6/image/upload/v1726225577/MyFullCourse_icon_appxnf.png" alt="MyFullCourse_icon Logo" class="w-16 h-16 rounded-full object-cover">
                         <span class="ml-3 text-2xl" style="font-family: 'Caveat', cursive;">MyFullCourse</span>
                     </a>
                     <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
