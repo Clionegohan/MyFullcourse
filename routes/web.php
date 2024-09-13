@@ -62,7 +62,6 @@ Route::controller(SearchController::class)->middleware(['auth'])->group(function
 Route::controller(LikeController::class)->middleware(['auth'])->group(function(){
     Route::post('/like/{post}', 'like')->name('like.post');
     Route::get('/likes', 'index')->name('likes.index');
-
 });
 
 Route::middleware('auth')->group(function () {

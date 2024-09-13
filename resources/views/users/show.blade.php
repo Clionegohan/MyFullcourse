@@ -8,7 +8,7 @@
     <style>
     
         .full-course-container {
-            background-image: url('{{ asset('storage/MyFullCourse_background.png') }}');
+            background-image: url('https://res.cloudinary.com/dem5z47a6/image/upload/v1726220188/MyFullCourse_background_qigch4.png');
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
