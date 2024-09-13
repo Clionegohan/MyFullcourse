@@ -4,6 +4,6 @@
 
 @section('content')
     <div class="w-full">
-        <img src="{{ asset('storage/MyFullCourse_home4.png') }}" alt="ホーム画面" class="w-full h-auto">
+        <img src="https://res.cloudinary.com/dem5z47a6/image/upload/v1726220886/MyFullCourse_home4_pl9b63.png" alt="ホーム画面" class="w-full h-auto">
     </div>
 @endsection

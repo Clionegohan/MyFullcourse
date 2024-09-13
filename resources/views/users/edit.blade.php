@@ -17,7 +17,7 @@
  
                 <div class="mt-6 text-center">
                     @if ($user->profile_image === null)
-                        <img class="w-24 h-24 rounded-full object-cover mx-auto" src="{{ asset('storage/default.png') }}" 
+                        <img class="w-24 h-24 rounded-full object-cover mx-auto" src="https://res.cloudinary.com/dem5z47a6/image/upload/v1726220971/default_icon_odkziu.png" 
                              alt="プロフィール画像" id="profile-image-preview"/>
                     @else
                         <img class="w-24 h-24 rounded-full object-cover mx-auto" src="{{ $user->profile_image }}" 
