@@ -16,7 +16,7 @@ class PostSeeder extends Seeder
     {
         DB::table('posts')->insert([
             [
-                'user_id' => 2,
+                'user_id' => 1,
                 'category_id' => 7,
                 'title' => '虹の実',
                 'body' => '気温や湿度によって七色に味を変え、口にすると体内で味が次々に変化し、食べたものに大きな感動を与える。
@@ -28,7 +28,7 @@ class PostSeeder extends Seeder
             ],
             
             [
-                'user_id' => 2,
+                'user_id' => 1,
                 'category_id' =>2,
                 'title' => 'センチュリースープ',
                 'body' => 'アイスヘルの中央にそびえるグルメショーウインドーから溶け出した天然のスープ。
@@ -40,7 +40,7 @@ class PostSeeder extends Seeder
             ],
             
             [
-                'user_id' => 2,
+                'user_id' => 1,
                 'category_id' =>1,
                 'title' => 'BBコーン',
                 'body' => 'たった1粒を強力な火力で煎って爆発させれば、たちまち100人前のポップコーンに変身。
