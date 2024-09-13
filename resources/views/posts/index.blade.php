@@ -80,17 +80,16 @@
                             @foreach($post->comments as $comment)
                                 <div class="relative bg-[#f7fafc] p-4 rounded-lg mb-2">
                                     <div class="flex items-center mb-4">
-                                        <a href="/users/{{ $post->user->id }}" class="flex items-center text-[#810947]">
-                                            @if ($post->comments->user->profile_image === null)
+                                        <a href="/users/{{ $comment->user->id }}" class="flex items-center text-[#810947]">
+                                            @if ($comment->user->profile_image === null)
                                                 <img class="w-8 h-8 rounded-full object-cover" src="https://res.cloudinary.com/dem5z47a6/image/upload/v1726220971/default_icon_odkziu.png" alt="プロフィール画像">
                                             @else
-                                                <img class="w-8 h-8 rounded-full object-cover" src="{{ $post->comments->user->profile_image }}" alt="プロフィール画像">
+                                                <img class="w-8 h-8 rounded-full object-cover" src="{{ $comment->user->profile_image }}" alt="プロフィール画像">
                                             @endif
-                                            <span class="ml-3 text-lg font-semibold">{{ $post->user->name }}</span>
+                                            <span class="ml-3 text-lg font-semibold">{{ $comment->user->name }}</span>
                                         </a>
                                     </div>
                                     
-                                    {{ $comment->user->name }}
                                     <p class="text-sm">{{ $comment->comment }}</p>
 
                                     @if (auth()->check() && auth()->user()->id === $comment->user_id)
