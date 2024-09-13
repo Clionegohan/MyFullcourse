@@ -68,6 +68,11 @@
 
 @section('scripts')
     <script>
+        function initMap() {
+            // 地図を表示する初期化処理が必要な場合ここに書きます
+            console.log("Google Maps API Loaded");
+        }
+
         function geocoderAddress() {
             const address = document.getElementById('address').value;
             const geocoder = new google.maps.Geocoder();
@@ -82,9 +87,12 @@
                     
                     document.getElementById('latitude').value = latitude;
                     document.getElementById('longitude').value = longitude;
+                } else {
+                    console.log('Geocode was not successful for the following reason: ' + status);
                 }
             });
         }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyD8p5NaW01uEm6AJVimJ75gyPwvV8obiTY" async defer></script>        
+
+    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyD8p5NaW01uEm6AJVimJ75gyPwvV8obiTY&callback=initMap" async defer></script>
 @endsection
