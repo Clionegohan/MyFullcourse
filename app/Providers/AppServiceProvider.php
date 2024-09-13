@@ -25,7 +25,8 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         \URL::forceScheme('https');
         $this->app['request']->server->set('HTTPS','on');
-        
-        View::share('headerCategories', Category::all());
+        /*
+        // View::share('headerCategories', Category::all());
+        */
     }
 }
