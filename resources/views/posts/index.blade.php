@@ -127,50 +127,56 @@
 @section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOMContentLoaded event fired');
+        console.log('DOMContentLoaded event fired');
 
-            document.querySelectorAll('.like-btn').forEach(function(button) {
-                console.log('Button found:', button);
-                
-                button.addEventListener('click', function() {
-                    console.log('Like button clicked');
+        // CSRFトークンをmetaタグから取得
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                    var postId = this.getAttribute('data-post-id');
-                    var icon = this.querySelector('i');
-                    var likeCountSpan = this.nextElementSibling;
+        document.querySelectorAll('.like-btn').forEach(function(button) {
+            console.log('Button found:', button);
+        
+            button.addEventListener('click', function() {
+                console.log('Like button clicked');
 
-                    console.log('postId:', postId);
-                    console.log('icon:', icon);
-                    console.log('likeCountSpan:', likeCountSpan);
+                var postId = this.getAttribute('data-post-id');
+                var icon = this.querySelector('i');
+                var likeCountSpan = this.nextElementSibling;
 
-                    fetch(`/like/${postId}`,{
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({})
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Server response:', data);
+                console.log('postId:', postId);
+                console.log('icon:', icon);
+                console.log('likeCountSpan:', likeCountSpan);
 
-                        if (data.success) {
-                            // アイコンのクラスを切り替えて「いいね」の状態を更新
-                            icon.classList.toggle('fas');
-                            icon.classList.toggle('far');
-                            icon.classList.toggle('text-gray-400');
-                            icon.classList.toggle('text-pink-500');
+                // Fetch APIでいいねを送信
+                fetch(`/like/${postId}`, {
+                   method: 'POST',
+                   headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken // ここでCSRFトークンを送信
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Server response:', data);
+ 
+                    if (data.success) {
+                        // アイコンのクラスを切り替えて「いいね」の状態を更新
+                        icon.classList.toggle('fas');
+                        icon.classList.toggle('far');
+                        icon.classList.toggle('text-gray-400');
+                        icon.classList.toggle('text-pink-500');
 
-                            // いいね数を更新
-                            likeCountSpan.textContent = data.like_count;
-                        } else {
-                            console.error('Like request failed:', data);
-                        }
-                    })
-                    .catch(error => console.error('Fetch error:', error));
-                });
+                        // いいね数を更新
+                        likeCountSpan.textContent = data.like_count;
+                    } else {
+                        console.error('Like request failed:', data);
+                    }
+                })
+                .catch(error => console.error('Fetch error:', error));
             });
+        });
+    });
+
 
             // 画像クリック時にモーダル表示
             function openModal(imageUrl) {
