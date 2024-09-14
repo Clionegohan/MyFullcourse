@@ -10,6 +10,9 @@ class Like extends Model
     public $timestamps = false;
     use HasFactory;
     
+    public $incrementing = false;
+    protected $primarKey = ['user_id', 'post_id'];
+    
     protected $fillable = [
         'user_id',
         'post_id',
