@@ -30,7 +30,7 @@ class LikeController extends Controller
         $like = $post->likes()->where('user_id', $user->id);
 
         if ($like->exists()) {
-            $like->first()->delete();
+            $like->delete();
         } else {
             $post->likes()->create(['user_id' => $user->id]);
         }
