@@ -26,23 +26,22 @@ class LikeController extends Controller
     }
 public function like(Post $post)
 {
-    // ユーザーが認証されているかを確認
-    if (!auth()->check()) {
-        return response()->json(['success' => false, 'message' => 'User not authenticated'], 401);
+    try {
+        $user = auth()->user();
+        $like = $post->likes()->where('user_id', $user->id);
+
+        if ($like->exists()) {
+            $like->first()->delete();
+        } else {
+            $post->likes()->create(['user_id' => $user->id]);
+        }
+
+        $likesCount = $post->likes()->count();
+
+        return response()->json(['success' => true, 'like_count' => $likesCount]);
+    } catch (\Exception $e) {
+        \Log::error('Error in like function: ' . $e->getMessage());
+        return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
     }
-
-    $user = auth()->user();
-    $like = $post->likes()->where('user_id', $user->id);
-
-    if ($like->exists()) {
-        $like->first()->delete();
-    } else {
-        $post->likes()->create(['user_id' => $user->id]);
-    }
-
-    $likesCount = $post->likes()->count();
-
-    return response()->json(['success' => true, 'like_count' => $likesCount]);
 }
-
 }
