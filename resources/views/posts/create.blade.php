@@ -68,6 +68,7 @@
 
 @section('scripts')
     <script>
+        /*
         function initMap() {
             const latitude = 35.6895;
             const longitude = 139.6917;
@@ -83,6 +84,7 @@
             
             console.log("Google Maps API Loaded");
         }
+        */
 
         function geocoderAddress() {
             const address = document.getElementById('address').value;

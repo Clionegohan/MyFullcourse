@@ -128,9 +128,13 @@
 
         // Google Maps の初期化
         function initMap() {
-            const latitude = @json($post->latitude);
-            const longitude = @json($post->longitude);
+            const latitude = parseFloat(@json($post->latitude));
+            const longitude = parseFloat(@json($post->longitude));
             
+            if (isNaN(latitude) || isNaN(longitude)) {
+                console.error('Latitude or Longitude is not a number.');
+                return;
+            }
             const map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: latitude, lng: longitude },
                 zoom: 15
