@@ -49,8 +49,8 @@
                 <label for="address" class="block mb-2 text-sm font-medium text-gray-900">住所</label>
                 <input type="text" id="address" name="post[address]" placeholder="必須じゃないよ！" onblur="geocoderAddress()" value="{{ old('post.address') }}" 
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                <input type="hidden" id="latitude" name="post[latitude]">
-                <input type="hidden" id="longitude" name="post[longitude]">
+                <input type="hidden" id="latitude" name="post[latitude]" value="">
+                <input type="hidden" id="longitude" name="post[longitude]" value="">
             </div>
             
             <input type="submit" value="投稿" class="bg-blue-500 text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-blue-700"/>
