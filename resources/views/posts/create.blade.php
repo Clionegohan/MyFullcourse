@@ -69,8 +69,19 @@
 @section('scripts')
     <script>
         function initMap() {
-            // 地図を表示する初期化処理が必要な場合ここに書きます
-            // console.log("Google Maps API Loaded");
+            const latitude = 35.6895;
+            const longitude = 139.6917;
+            
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: latitude, lng: longitude },
+                zoom: 15
+            });
+            
+            const marker = new google.maps.Marker({
+                position: { lat: latitude, lng: longitude },
+            });
+            
+            console.log("Google Maps API Loaded");
         }
 
         function geocoderAddress() {
