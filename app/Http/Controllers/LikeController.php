@@ -24,9 +24,8 @@ class LikeController extends Controller
         
         return view('likes.index', compact('posts'));
     }
-public function like(Post $post)
-{
-    try {
+    public function like(Post $post)
+    {
         $user = auth()->user();
         $like = $post->likes()->where('user_id', $user->id);
 
@@ -39,9 +38,5 @@ public function like(Post $post)
         $likesCount = $post->likes()->count();
 
         return response()->json(['success' => true, 'like_count' => $likesCount]);
-    } catch (\Exception $e) {
-        \Log::error('Error in like function: ' . $e->getMessage());
-        return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
     }
-}
 }
