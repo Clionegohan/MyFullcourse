@@ -128,8 +128,8 @@
 
         // Google Maps の初期化
         function initMap() {
-            const latitude = {{ $post->latitude }};
-            const longitude = {{ $post->longitude }};
+            const latitude = @json($post->latitude);
+            const longitude = @json($post->longitude);
             
             const map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: latitude, lng: longitude },

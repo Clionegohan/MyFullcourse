@@ -70,7 +70,7 @@
     <script>
         function initMap() {
             // 地図を表示する初期化処理が必要な場合ここに書きます
-            console.log("Google Maps API Loaded");
+            // console.log("Google Maps API Loaded");
         }
 
         function geocoderAddress() {
