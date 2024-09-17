@@ -1,66 +1,72 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
+<h1>MyFullCourse</h1>
+</div>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 制作背景
+食事は、その当時の状況や誰と食べたかで大きく印象が変わります。
 
-## About Laravel
+2024年3月、岩手県の小岩井農場で地元の友人と猛吹雪の中で飲んだかぼちゃのクリームポタージュは、ただ美味しいだけでなく、その状況や友人との時間が、より一層特別に感じさせました。
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+このアプリでは、料理の味だけでなく、誰と食べたか、どんな背景があったかというエピソードを共有できる場を作りたいと考え、制作に取り組みました。
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 概要
+![MyFullCourse_home4](https://github.com/user-attachments/assets/ac653409-64f6-48f3-91af-b01c276712e8)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+このアプリは、漫画「トリコ」の「人生のフルコース」にインスパイアされ、あなた自身の食の想い出を形にする場です。
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+オードブル(前菜)、スープ、魚料理、肉料理、主菜(メイン)、サラダ、デザート、ドリンクの８つのカテゴリーに、人生で一番美味しかった食べ物や、忘れられない味、それにまつわるエピソードを詰め込んでください。
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+料理だけでなく、飲み物やお菓子、さらには食べ物でなくても構いません。
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+あなたの人生を彩った「フルコース」を完成させ、他の人と特別な食の想い出を共有しましょう。
 
-## Laravel Sponsors
+<a href="https://myfullcourse-a3b651ea6c01.herokuapp.com/">アプリはこちらから</a>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+## 開発環境
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 使用言語・FW:
+- PHP
+- HTML
+- CSS(Tailwind CSS)
+- JavaScript
+- Laravel(ver.10.48.20)
 
-## Contributing
+### 環境:
+- AWS(Cloud9)
+- Github
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### デプロイ:
+- Heroku
 
-## Code of Conduct
+## データ構成
+![MyFullCourse_ER図](https://github.com/user-attachments/assets/a7bdb4b3-5b94-4a4e-bbe1-77e1388bfdf9)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 機能
+- CRUD
+- ユーザー管理
+- フルコース投稿機能
+- 画像投稿機能
+- マップ機能(Google Maps API)
+- カテゴリ
+- 投稿検索機能
+- いいね機能
+- 投稿への返信機能
+- プロフィール編集
 
-## Security Vulnerabilities
+## こだわり
+### 投稿の検索機能
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+本アプリでは、カテゴリごとの表示機能や文字列検索が可能です。
 
-## License
+単なるグルメ情報にとどまらず、その時のエピソードも一緒に投稿できるため、「辛い」と検索すると、辛い料理に加えて、辛い思い出にまつわる料理が一緒に表示されるかもしれません。
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+検索結果に意図しないエピソードが紛れ込む点が、このアプリのユニークな面白さだと感じています。
+
+## 今後の展望
+- フルコース候補メニューの投稿機能
+- SNSアカウントとの連携機能
+- ページ読み込み速度の最適化
+- UIデザインの改善
+
