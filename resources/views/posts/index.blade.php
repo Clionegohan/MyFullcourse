@@ -10,7 +10,7 @@
         </div>
         
         <!-- Grid -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 gap-6 max-w-2xl mx-auto p-6">
             @foreach ($posts as $post)
                 <!-- Card -->
                 <div class="group flex flex-col focus:outline-none bg-white p-6 rounded-lg shadow-lg">

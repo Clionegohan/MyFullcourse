@@ -48,8 +48,8 @@
                                     @endforeach
                                 </div>
                         </div>
-                        <a href="/users/{{ auth()->user()->id }}" class="mr-5 hover:text-gray-900">マイプロフィール</a>
                         <a href="/likes" class="mr-5 hover:text-gray-900">お気に入り</a>
+                        <a href="/users/{{ auth()->user()->id }}" class="mr-5 hover:text-gray-900">マイプロフィール</a>
                         <a href="/about" class="mr-5 hover:text-gray-900">MyFullCourseについて</a>
                     </nav>
 
