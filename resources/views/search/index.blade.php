@@ -16,8 +16,36 @@
                 <p class="text-center text-lg leading-loose">{{ $posts->count() }}件見つかりました。</p>
         </div>
         
+            <!-- コンテンツ全体を2カラムレイアウトに -->
+    <div class="lg:flex lg:space-x-6">
+        
+        
+    <!-- サイドバー（注目のフルコース） -->
+        <div class="lg:w-1/4 bg-white shadow-md p-4 max-w-sm h-full text-center overflow-y-auto ">
+            <h2 class="text-lg font-semibold mb-4" style="font-family: 'Noto Serif JP', serif;">注目の投稿</h2>
+            @foreach ($headerCategories as $category)
+                @php
+                    $topPost = $category->posts()->withCount('likes')->orderBy('likes_count', 'desc')->first();
+                @endphp
+                
+                @if ($topPost)
+                    <div class="top-post mb-4">
+                        <h3 class="font-bold text-sm" style="font-family: 'Noto Serif JP', serif;">{{ $category->name_jp }}</h3>
+                        <a href="{{ route('posts.show', $topPost->id) }}" class="block">
+                            <p class="text-sm" style="font-family: 'Noto Serif JP', serif;">{{ $topPost->title }}</p>
+                            <span class="text-xs text-gray-600">
+                                {{ $topPost->user->name }} いいね: {{ $topPost->likes_count }}
+                            </span>
+                        </a>
+                    </div>
+                @else
+                    <p class="text-sm text-gray-600">{{ $category->name_jp }}にはまだ投稿がありません。</p>
+                @endif
+            @endforeach
+        </div>
+        
         <!-- Grid -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid lg:w-3/4 grid grid-cols-1 gap-6 max-w-2xl p-6">
             @foreach ($posts as $post)
                 <!-- Card -->
                 <div class="group flex flex-col bg-white p-6 rounded-lg shadow-lg">

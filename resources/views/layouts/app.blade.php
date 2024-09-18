@@ -22,7 +22,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-white-100">
+        <div class="min-h-screen bg-yellow-50">
             
             {{--@include('layouts.navigation')--}}
             
@@ -63,6 +63,7 @@
                         </form>
                     @endif
                 </div>
+
             </header>
 
             

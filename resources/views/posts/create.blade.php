@@ -5,7 +5,6 @@
 @section('content')
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto text-center">
         <h1 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">思い出の1品</h1>
-        
         <form action="/posts" method="POST" enctype="multipart/form-data" class="mt-10 max-w-lg mx-auto text-left">
             @csrf
             <div class="category mb-6">

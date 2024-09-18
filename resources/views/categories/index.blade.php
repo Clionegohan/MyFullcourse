@@ -7,11 +7,39 @@
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Title -->
         <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">{{ $category->name_jp }}</h2>
+            <h1 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">{{ $category->name_jp }}</h1>
+        </div>
+        
+            <!-- コンテンツ全体を2カラムレイアウトに -->
+    <div class="lg:flex lg:space-x-6">
+        
+        
+    <!-- サイドバー（注目のフルコース） -->
+        <div class="lg:w-1/4 bg-white shadow-md p-4 max-w-sm h-full text-center overflow-y-auto ">
+            <h2 class="text-lg font-semibold mb-4" style="font-family: 'Noto Serif JP', serif;">注目の投稿</h2>
+            @foreach ($headerCategories as $category)
+                @php
+                    $topPost = $category->posts()->withCount('likes')->orderBy('likes_count', 'desc')->first();
+                @endphp
+                
+                @if ($topPost)
+                    <div class="top-post mb-4">
+                        <h3 class="font-bold text-sm" style="font-family: 'Noto Serif JP', serif;">{{ $category->name_jp }}</h3>
+                        <a href="{{ route('posts.show', $topPost->id) }}" class="block">
+                            <p class="text-sm" style="font-family: 'Noto Serif JP', serif;">{{ $topPost->title }}</p>
+                            <span class="text-xs text-gray-600">
+                                {{ $topPost->user->name }} いいね: {{ $topPost->likes_count }}
+                            </span>
+                        </a>
+                    </div>
+                @else
+                    <p class="text-sm text-gray-600">{{ $category->name_jp }}にはまだ投稿がありません。</p>
+                @endif
+            @endforeach
         </div>
 
         <!-- Grid -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="lg:w-3/4 grid grid-cols-1 gap-6 max-w-2xl p-6">
             @foreach ($posts as $post)
                 <!-- Card -->
                 <div class="group flex flex-col focus:outline-none bg-white p-6 rounded-lg shadow-lg">
