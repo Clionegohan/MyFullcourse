@@ -8,7 +8,9 @@
         <form action="/posts" method="POST" enctype="multipart/form-data" class="mt-10 max-w-lg mx-auto text-left">
             @csrf
             <div class="category mb-6">
-                <label for="category" class="block mb-2 text-sm font-medium text-gray-900">カテゴリ</label>
+                <label for="category" class="block mb-2 text-sm font-medium text-gray-900">
+                    カテゴリ <span class="text-red-500">*</span>
+                </label>
                 @if($categories->isEmpty())
                     <p>カテゴリがありません。</p>
                 @else
@@ -24,14 +26,18 @@
             </div>
             
             <div class="title mb-6">
-                <label for="title" class="block mb-2 text-sm font-medium text-gray-900">料理名</label>
+                <label for="title" class="block mb-2 text-sm font-medium text-gray-900">
+                    料理名 <span class="text-red-500">*</span>
+                </label>
                 <input type="text" name="post[title]" id="title" placeholder="どこで？誰が？などを書くといいかも！" value="{{ old('post.title') }}" 
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
                 <p class="text-red-500">{{ $errors->first('post.title') }}</p>
             </div>
             
             <div class="body mb-6">
-                <label for="body" class="block mb-2 text-sm font-medium text-gray-900">あなたの思い出の料理</label>
+                <label for="body" class="block mb-2 text-sm font-medium text-gray-900">
+                    あなたの思い出の1品 <span class="text-red-500">*</span>
+                </label>
                 <textarea name="post[body]" id="body" placeholder="味の感想、料理の思い出をみんなと共有しよう！" 
                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">{{ old('post.body') }}</textarea>
                 <p class="text-red-500">{{ $errors->first('post.body') }}</p>
@@ -45,8 +51,8 @@
             </div>
             
             <div class="map mb-6">
-                <label for="address" class="block mb-2 text-sm font-medium text-gray-900">住所</label>
-                <input type="text" id="address" name="post[address]" placeholder="必須じゃないよ！" onblur="geocoderAddress()" value="{{ old('post.address') }}" 
+                <label for="address" class="block mb-2 text-sm font-medium text-gray-900">食べた場所</label>
+                <input type="text" id="address" name="post[address]" placeholder="住所を入力すれば地図が表示されます。" onblur="geocoderAddress()" value="{{ old('post.address') }}" 
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <input type="hidden" id="latitude" name="post[latitude]" value="">
                 <input type="hidden" id="longitude" name="post[longitude]" value="">
