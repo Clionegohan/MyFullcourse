@@ -41,7 +41,8 @@
 - Heroku
 
 ## データ構成
-![MyFullCourse_ER図](https://github.com/user-attachments/assets/a7bdb4b3-5b94-4a4e-bbe1-77e1388bfdf9)
+![image](https://github.com/user-attachments/assets/7a2b3b21-d42b-44a1-9331-1d46eec34235)
+
 
 ## 機能
 - CRUD
