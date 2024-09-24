@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('diary_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('diary_id')->constrained('diary')->onDelete('cascade');
+            $table->foreignId('diary_id')->constrained('diaries')->onDelete('cascade');
             $table->string('image_url');
         });
     }
