@@ -53,7 +53,7 @@
                     <div class="flex items-center mb-4">
                         <a href="/users/{{ $post->user->id }}" class="flex items-center text-[#810947]">
                             @if ($post->user->profile_image === null)
-                                <img class="w-12 h-12 rounded-full object-cover" src="{{ asset('storage/default.png') }}" alt="プロフィール画像">
+                                <img class="w-12 h-12 rounded-full object-cover" src="https://res.cloudinary.com/dem5z47a6/image/upload/v1726220971/default_icon_odkziu.png" alt="プロフィール画像">
                             @else
                                 <img class="w-12 h-12 rounded-full object-cover" src="{{ $post->user->profile_image }}" alt="プロフィール画像">
                             @endif
