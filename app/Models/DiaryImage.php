@@ -18,6 +18,6 @@ class DiaryImage extends Model
         
         public function diary()
         {
-            return $this->blongsTo(Diary::class);
+            return $this->belongsTo(Diary::class);
         }
 }
