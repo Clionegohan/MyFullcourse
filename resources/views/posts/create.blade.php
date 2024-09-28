@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', '料理の投稿-MyFullCourse')
+@section('title', 'フルコース投稿-MyFullCourse')
 
 @section('content')
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto text-center">

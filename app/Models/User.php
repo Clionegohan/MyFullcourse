@@ -59,4 +59,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+    public function diaries() {
+        return $this->hasMany(Diary::class);
+    }
+    public function diarylikes()
+    {
+        return $this->hasMany(DiaryLike::class);
+    }
+    public function diarycomments()
+    {
+        return $this->hasMany(DiaryComment::class);
+    }
 }
