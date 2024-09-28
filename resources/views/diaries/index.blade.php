@@ -111,7 +111,7 @@
                                     <p class="text-sm">{{ $comment->comment }}</p>
 
                                     @if (auth()->check() && auth()->user()->id === $comment->user_id)
-                                        <form action="{{ route('comments.delete', $comment->id) }}" method="POST" onsubmit="return confirm('コメント削除します。よろしいですか？');">
+                                        <form action="{{ route('diary.comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('コメント削除します。よろしいですか？');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="absolute top-2 right-2 bg-none text-red-500 text-lg">x</button>

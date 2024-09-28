@@ -85,7 +85,7 @@ Route::controller(DiaryLikeController::class)->middleware(['auth'])->group(funct
 
 Route::controller(DiaryCommentController::class)->middleware(['auth'])->group(function(){
     Route::post('/diaries/{diary}/comments', 'store')->name('diary.comments.store');
-    Route::delete('/diary/comments/{comment}', 'destroy')->name('diary.comments.destroy');
+    Route::delete('/diaries/comments/{comment}', 'destroy')->name('diary.comments.destroy');
 });
 
 Route::controller(UserDiaryController::class)->middleware(['auth'])->group(function(){

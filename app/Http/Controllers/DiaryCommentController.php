@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Diary;
 use App\Models\Diary_image;
 use App\Models\DiaryLike;
+use App\Models\DiaryComment;
 use App\Http\Requests\DiaryCommentRequest;
 use Cloudinary;
 
@@ -24,7 +25,7 @@ class DiaryCommentController extends Controller
     }
     
     public function destroy(DiaryComment $comment) {
-        $user = auth->user();
+        $user = auth()->user();
         $comment->delete();
         return redirect()->route('diary.index');
     }
