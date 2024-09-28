@@ -80,6 +80,12 @@ class PostController extends Controller
             $judgement->update([$judgementField => 0]);
         }
         
+        if ($post->images->isNotEmpty()) {
+            foreach ($post->images as $image){
+                $image->delete();
+            }
+        }
+        
         $post->delete();
         return redirect('/');
     }

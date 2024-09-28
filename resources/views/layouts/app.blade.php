@@ -64,6 +64,7 @@
                                 </div>
                         </div>
                         <a href="/likes" class="mr-5 hover:text-gray-900">お気に入り</a>
+                        <a href="/photos" class="mr-5 hover:text-gray-900">ギャラリー</a>
                         <a href="/users/{{ auth()->user()->id }}" class="mr-5 hover:text-gray-900">マイプロフィール</a>
                         <a href="/about" class="mr-5 hover:text-gray-900">MyFullCourseについて</a>
                     </nav>

@@ -86,6 +86,12 @@ class DiaryController extends Controller
     public function delete(Diary $diary) {
         
         $user = auth()->user();
+        
+        if ($diary->images->isNotEmpty()) {
+            foreach ($diary->images as $image) {
+                $image->delete();
+            }
+        }
         $diary->delete();
         return redirect()->route('diary.index');
     }

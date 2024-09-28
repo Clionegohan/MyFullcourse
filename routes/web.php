@@ -13,6 +13,8 @@ use App\Http\Controllers\DiaryController;
 use App\Http\Controllers\DiaryLikeController;
 use App\Http\Controllers\DiaryCommentController;
 use App\Http\Controllers\UserDiaryController;
+use App\Http\Controllers\PhotoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -90,6 +92,10 @@ Route::controller(DiaryCommentController::class)->middleware(['auth'])->group(fu
 
 Route::controller(UserDiaryController::class)->middleware(['auth'])->group(function(){
     Route::get('/users/{user}/diaries', 'index')->name('user.diaries.index');
+});
+
+Route::controller(PhotoController::class)->middleware(['auth'])->group(function(){
+   Route::get('/photos', 'index')->name('photos.index'); 
 });
 
 Route::middleware('auth')->group(function () {
