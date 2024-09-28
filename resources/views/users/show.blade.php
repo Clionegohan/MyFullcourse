@@ -42,16 +42,16 @@
             @else
                 <img class="w-24 h-24 rounded-full object-cover mx-auto" src="{{ $user->profile_image }}" alt="プロフィール画像">
             @endif
-            @if(auth()->user()->id === $user->id)
             <div class="mt-4 text-center">
-                <div class="mb-2">
-                    <a href="/users/{{ $user->id }}/edit" class="text-blue-500 hover:underline">プロフィールを編集</a>
-                </div>
+                @if(auth()->user()->id === $user->id)
+                    <div class="mb-2">
+                        <a href="/users/{{ $user->id }}/edit" class="text-blue-500 hover:underline">プロフィールを編集</a>
+                    </div>
+                @endif
                 <div>
                     <a href="/users/{{ $user->id }}/diaries" class="text-blue-500 hover:underline">食日記</a>
                 </div>
             </div>
-            @endif
         </div>
 
         <!-- 全体を囲む枠 -->

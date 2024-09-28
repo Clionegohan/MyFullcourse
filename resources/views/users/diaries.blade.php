@@ -8,6 +8,9 @@
     <!-- Title -->
     <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
         <h1 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">グルメダイアリー</h1>
+        @if ($diaries->isEmpty())
+            <p class="text-center text-lg leading-loose">まだグルメダイアリーを投稿していません。</p>
+        @endif
     </div>
     
     <!-- コンテンツ全体を2カラムレイアウトに -->
