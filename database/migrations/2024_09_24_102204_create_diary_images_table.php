@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diary_images', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('diary_id')->constrained('diaries')->onDelete('cascade');
-            $table->string('image_url');
-        });
+        if (!Schema::hasTable('diary_images')) {
+            Schema::create('diary_images', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('diary_id')->constrained('diaries')->onDelete('cascade');
+                $table->string('image_url');
+            });
+        }
     }
 
     /**

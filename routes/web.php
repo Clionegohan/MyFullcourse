@@ -9,6 +9,10 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\DiaryController;
+use App\Http\Controllers\DiaryLikeController;
+use App\Http\Controllers\DiaryCommentController;
+use App\Http\Controllers\UserDiaryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,6 +66,30 @@ Route::controller(SearchController::class)->middleware(['auth'])->group(function
 Route::controller(LikeController::class)->middleware(['auth'])->group(function(){
     Route::post('/like/{post}', 'like')->name('like.post');
     Route::get('/likes', 'index')->name('likes.index');
+});
+
+Route::controller(DiaryController::class)->middleware(['auth'])->group(function(){
+    Route::get('/diaries', 'index')->name('diary.index');
+    Route::get('/diaries/create', 'create')->name('diary.create');
+    Route::post('/diaries', 'store')->name('diary.store');
+    Route::get('/diaries/{diary}/edit', 'edit')->name('diary.edit');
+    Route::get('/diaries/{diary}', 'show')->name('diary.show');
+    Route::put('/diaries/{diary}', 'update')->name('diary.update');
+    Route::delete('/diaries/{diary}', 'delete')->name('diary.delete');
+});
+
+Route::controller(DiaryLikeController::class)->middleware(['auth'])->group(function(){
+    Route::post('/diaries/like/{diary}', 'like')->name('diary.like');
+    Route::get('/diary/likes', 'index')->name('diary.likes.index');
+});
+
+Route::controller(DiaryCommentController::class)->middleware(['auth'])->group(function(){
+    Route::post('/diaries/{diary}/comments', 'store')->name('diary.comments.store');
+    Route::delete('/diary/comments/{comment}', 'destroy')->name('diary.comments.destroy');
+});
+
+Route::controller(UserDiaryController::class)->middleware(['auth'])->group(function(){
+    Route::get('/users/{user}/diaries', 'index')->name('user.diaries.index');
 });
 
 Route::middleware('auth')->group(function () {

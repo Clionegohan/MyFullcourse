@@ -35,7 +35,22 @@
                     </a>
                     <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
                         <a href="/" class="mr-5 hover:text-gray-900">みんなのフルコース</a>
-                        <a href="/posts/create" class="mr-5 hover:text-gray-900">料理の投稿</a>
+                        <a href="/diaries" class="mr-5 hover:text-gray-900">グルメダイアリー</a>
+                        <div class="relative group">
+                            <button id="post-button" class="mr-5 hover:text-gray-900 focus:outline-none">投稿</button>
+                                <div id="post-menu" class="absolute hidden bg-white border mt-2 rounded shadow-lg z-10">
+                                    <a href="/posts/create"
+                                       class="block px-6 py-3 hover:bg-gray-200 text-gray-700 text-lg"
+                                       style="min-width: 200px;">
+                                       フルコース
+                                    </a>
+                                    <a href="/diaries/create"
+                                       class="block px-6 py-3 hover:bg-gray-200 text-gray-700 text-lg"
+                                       style="min-width: 200px;">
+                                       グルメダイアリー
+                                    </a>
+                                </div>
+                        </div>
                         <div class="relative group">
                             <button id="category-button" class="mr-5 hover:text-gray-900 focus:outline-none">カテゴリ</button>
                                 <div id="category-menu" class="absolute hidden bg-white border mt-2 rounded shadow-lg z-10">
@@ -67,25 +82,38 @@
             </header>
 
             
-            <!-- JavaScript -->
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const categoryButton = document.getElementById('category-button');
-                    const categoryMenu = document.getElementById('category-menu');
+<!-- JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 投稿ボタン
+        const postButton = document.getElementById('post-button');
+        const postMenu = document.getElementById('post-menu');
 
-                    // カテゴリボタンをクリックするとメニューを表示/非表示
-                    categoryButton.addEventListener('click', function() {
-                        categoryMenu.classList.toggle('hidden');
-                    });
+        // 投稿ボタンをクリックするとメニューを表示/非表示
+        postButton.addEventListener('click', function() {
+            postMenu.classList.toggle('hidden');
+        });
 
-                    // ページの他の場所をクリックしたときにメニューを非表示にする
-                    document.addEventListener('click', function(event) {
-                        if (!categoryButton.contains(event.target) && !categoryMenu.contains(event.target)) {
-                            categoryMenu.classList.add('hidden');
-                        }
-                    });
-                });
-            </script>
+        // カテゴリボタン
+        const categoryButton = document.getElementById('category-button');
+        const categoryMenu = document.getElementById('category-menu');
+
+        // カテゴリボタンをクリックするとメニューを表示/非表示
+        categoryButton.addEventListener('click', function() {
+            categoryMenu.classList.toggle('hidden');
+        });
+
+        // ページの他の場所をクリックしたときにメニューを非表示にする
+        document.addEventListener('click', function(event) {
+            if (!postButton.contains(event.target) && !postMenu.contains(event.target)) {
+                postMenu.classList.add('hidden');
+            }
+            if (!categoryButton.contains(event.target) && !categoryMenu.contains(event.target)) {
+                categoryMenu.classList.add('hidden');
+            }
+        });
+    });
+</script>
             <!-- Page Content -->
             @yield('scripts')
             <main>
