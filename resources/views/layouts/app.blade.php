@@ -34,7 +34,7 @@
                         <span class="ml-3 text-2xl" style="font-family: 'Caveat', cursive;">MyFullCourse</span>
                     </a>
                     <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                        <a href="/" class="mr-5 hover:text-gray-900">みんなのフルコース</a>
+                        <a href="/" class="mr-5 hover:text-gray-900">フルコース</a>
                         <a href="/diaries" class="mr-5 hover:text-gray-900">グルメダイアリー</a>
                         <div class="relative group">
                             <button id="post-button" class="mr-5 hover:text-gray-900 focus:outline-none">投稿</button>
