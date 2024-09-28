@@ -87,6 +87,6 @@ class DiaryController extends Controller
         
         $user = auth()->user();
         $diary->delete();
-        return redirect('diaries.index');
+        return redirect()->route('diary.index');
     }
 }

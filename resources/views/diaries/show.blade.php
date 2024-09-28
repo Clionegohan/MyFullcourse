@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="max-w-5xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto text-center">
-        <a href="/diaries/{diary}"></a>
         
         <!-- User -->
         <div class="flex items-center justify-center mb-4">
@@ -47,7 +46,7 @@
                         @foreach($diary->comments as $comment)
                             <div class="relative bg-[#f7fafc] p-4 rounded-lg mb-2">
                                 <div class="flex items-center mb-4">
-                                    <a href="/users/{{ $comment->user->id }}" class="flex items-center text-[#810947]">//修正必要
+                                    <a href="/users/{{ $comment->user->id }}" class="flex items-center text-[#810947]">
                                         @if ($comment->user->profile_image === null)
                                             <img class="w-8 h-8 rounded-full object-cover" src="https://res.cloudinary.com/dem5z47a6/image/upload/v1726220971/default_icon_odkziu.png" alt="プロフィール画像">
                                         @else
@@ -73,9 +72,14 @@
         
         <!-- Edit -->
         @if(auth()->user()->id === $diary->user_id)
-            <div class="mt-6">
-                <a href="/diaries/{{ $diary->id }}/edit" class="text-blue-600 hover:underline">投稿の編集</a>
-            </div>
+        <form action="/diaries/{{ $diary->id }}" id="form_{{ $diary->id }}" method="post" class="mt-6">
+            @csrf
+            @method('DELETE')
+            <button type="button" onclick="deleteDiary({{ $diary->id }})" 
+                    class="bg-red-500 text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-red-700">
+                削除
+            </button>
+        </form>
         @endif
         
         <!-- Back -->
@@ -112,5 +116,13 @@
                 event.stopPropagation();
             });
         });
+        
+        function deleteDiary(id) {
+            'use strict';
+            
+            if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+                document.getElementById(`form_${id}`).submit();
+            }
+        }
     </script>
 @endsection
