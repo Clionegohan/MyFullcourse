@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto text-center">
-        <h1 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">思い出の1品</h1>
+        <h1 class="text-2xl font-bold md:text-4xl md:leading-tight font-serif">思い出の1品</h1>
         <form action="/posts" method="POST" enctype="multipart/form-data" class="mt-10 max-w-lg mx-auto text-left">
             @csrf
             <div class="category mb-6">
@@ -57,8 +57,9 @@
                 <input type="hidden" id="latitude" name="post[latitude]" value="">
                 <input type="hidden" id="longitude" name="post[longitude]" value="">
             </div>
-            
-            <input type="submit" value="投稿" class="bg-blue-500 text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-blue-700"/>
+            <div class="text-center">
+                <input type="submit" value="投稿" class="bg-blue-500 text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-blue-700"/>
+            </div>
         </form>
         
         <div class="footer mt-6">

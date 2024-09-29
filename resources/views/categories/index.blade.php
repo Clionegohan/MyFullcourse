@@ -7,7 +7,7 @@
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Title -->
         <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-            <h1 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">{{ $category->name_jp }}</h1>
+            <h1 class="text-2xl font-bold md:text-4xl md:leading-tight font-serif">{{ $category->name_jp }}</h1>
         </div>
         
             <!-- コンテンツ全体を2カラムレイアウトに -->
@@ -60,7 +60,7 @@
 
                     <!-- Post Title -->
                     <h2 class="mt-2 text-xl font-semibold">
-                        <a href="/posts/{{ $post->id }}" class="text-gray-800 group-hover:text-gray-600 dark:text-neutral-300 dark:group-hover:text-white">
+                        <a href="/posts/{{ $post->id }}" class="text-gray-800 group-hover:text-gray-600 font-serif">
                             {{ $post->title }}
                         </a>
                     </h2>

@@ -7,7 +7,7 @@
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
     <!-- Title -->
     <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-        <h1 class="text-2xl font-bold md:text-4xl md:leading-tight">みんなのフルコース</h1>
+        <h1 class="text-2xl font-bold md:text-4xl md:leading-tight font-serif">みんなのフルコース</h1>
     </div>
     
     <!-- コンテンツ全体を2カラムレイアウトに -->
@@ -61,7 +61,7 @@
                     <!-- Post Title -->
                     <h2 class="mt-2 text-xl font-semibold">
                         <a href="/posts/{{ $post->id }}"
-                           class="text-xl text-gray-800 group-hover:text-gray-600 dark:text-neutral-300 dark:group-hover:text-white font-serif">
+                           class="text-xl text-gray-800 group-hover:text-gray-600 font-serif">
                             {{ $post->title }}
                         </a>
                     </h2>
@@ -89,7 +89,7 @@
                     </div>
                     
                     <!-- Body -->
-                    <p class="mt-2 text-gray-800 dark:text-neutral-200">{{ $post->body }}</p>
+                    <p class="mt-2 text-gray-800">{{ $post->body }}</p>
 
                     <!-- Like Button -->
                     <div class="mt-4 flex items-center">

@@ -20,7 +20,7 @@
         <!-- Content Section -->
         <div class="mt-10 bg-white p-8 rounded-lg shadow-lg max-w-2xl w-full">
             <div class="content__post text-left">
-                <p class="mb-4 text-xl text-gray-900">日々のグルメ日記：</p>
+                <p class="mb-4 text-xl text-gray-900 text-center">日々のグルメ日記：</p>
                 <p class="text-base text-gray-800 leading-relaxed">{{ $diary->content }}</p>
             </div>
             
@@ -75,7 +75,7 @@
 
         <!-- Delete Button -->
         @if(auth()->user()->id === $diary->user_id)
-            <div class="mt-10 max-w-2xl w-full text-left">
+            <div class="mt-10 max-w-2xl w-full">
                 <form action="/diaries/{{ $diary->id }}" id="form_{{ $diary->id }}" method="post">
                     @csrf
                     @method('DELETE')

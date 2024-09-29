@@ -7,7 +7,7 @@
     <div class="container mx-auto px-4 py-10">
         <!-- Title -->
         <div class="text-center mb-10">
-            <h1 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">写真ギャラリー</h1>
+            <h1 class="text-2xl font-bold md:text-4xl md:leading-tight font-serif">写真ギャラリー</h1>
         </div>
         <!-- Gallery -->
         <div class="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
