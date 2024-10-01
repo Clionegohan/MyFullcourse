@@ -29,7 +29,7 @@
         </form>
         
         <div class="footer mt-6">
-            <a href="/" class="text-blue-500 hover:underline">戻る</a>
+            <a href="javascript:void(0);" onclick="window.history.back();" class="text-blue-500 hover:underline">戻る</a>
         </div>
     </div>
     @php

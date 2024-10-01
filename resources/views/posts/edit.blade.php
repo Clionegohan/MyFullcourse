@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto text-center">
-        <h1 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">編集画面</h1>
+        <h1 class="text-2xl font-bold md:text-4xl md:leading-tight font-serif">編集画面</h1>
         
         <form action="/posts/{{ $post->id }}" method="POST" enctype="multipart/form-data" class="mt-10 max-w-lg mx-auto text-left">
             @csrf
@@ -59,7 +59,7 @@
         </form>
 
         <div class="footer mt-6">
-            <a href="/" class="text-blue-500 hover:underline">戻る</a>
+            <a href="javascript:void(0);" onclick="window.history.back();" class="text-blue-500 hover:underline">戻る</a>
         </div>
     </div>
     @php
