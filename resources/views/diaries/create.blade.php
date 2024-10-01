@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto text-center">
-        <h1 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white font-serif">グルメダイアリー</h1>
+        <h1 class="text-2xl font-bold md:text-4xl md:leading-tight font-serif">グルメダイアリー</h1>
         <form action="/diaries" method="POST" enctype="multipart/form-data" class="mt-10 max-w-lg mx-auto text-left">
             @csrf
             
@@ -23,8 +23,9 @@
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"> 
                 <p class="text-red-500">{{ $errors->first('files') }}</p>
             </div>
-            
-            <input type="submit" value="投稿" class="bg-blue-500 text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-blue-700"/>
+            <div class="text-center">
+                <input type="submit" value="投稿" class="bg-blue-500 text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-blue-700"/>
+            </div>
         </form>
         
         <div class="footer mt-6">

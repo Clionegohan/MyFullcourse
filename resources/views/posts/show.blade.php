@@ -26,7 +26,7 @@
         <!-- Content Section -->
         <div class="mt-10 bg-white p-8 rounded-lg shadow-lg max-w-2xl w-full">
             <div class="content__post text-left">
-                <p class="mb-4 text-xl text-gray-900">料理の感想：</p>
+                <p class="mb-4 text-xl text-gray-900 text-center">料理の感想：</p>
                 <p class="text-base text-gray-700 leading-relaxed">{{ $post->body }}</p>
             </div>
             
@@ -54,7 +54,7 @@
                 </div>
             @endif
             @if(!is_null($post->address))
-                <p class="mt-4 text-gray-800 dark:text-neutral-200">食べた場所：{{ $post->address }}</p>
+                <p class="mt-4 text-gray-800">食べた場所：{{ $post->address }}</p>
             @endif
         </div>
 
@@ -89,10 +89,11 @@
         @endif
 
         <!-- Edit and Back Links -->
-        <div class="mt-10 max-w-2xl w-full text-left">
+        <div class="mt-10 max-w-2xl w-full text-center">
             @if(auth()->user()->id === $post->user_id)
                 <a href="/posts/{{ $post->id }}/edit" class="text-blue-600 hover:underline">投稿の編集</a>
             @endif
+
 
             <div class="mt-6">
                 <a href="javascript:void(0);" onclick="window.history.back();" class="text-blue-500 hover:underline">戻る</a>
@@ -137,5 +138,5 @@
             });
         }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key={{ env('GOOGLE_MAPS_API') }}&callback=initMap" async defer></script>
 @endsection
