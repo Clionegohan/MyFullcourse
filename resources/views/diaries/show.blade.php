@@ -89,7 +89,7 @@
         
         <!-- Back Link -->
         <div class="footer mt-10">
-            <a href="/diaries" class="text-blue-600 hover:underline">戻る</a>
+            <a href="javascript:void(0);" onclick="window.history.back();" class="text-blue-500 hover:underline">戻る</a>
         </div>
     </div>
 @endsection

@@ -48,7 +48,7 @@
         </div>
  
         <div class="mt-8 text-center">
-            <a href="/" class="text-indigo-500 hover:underline">戻る</a>
+            <a href="javascript:void(0);" onclick="window.history.back();" class="text-blue-500 hover:underline">戻る</a>
         </div>
     </div>
     @php
