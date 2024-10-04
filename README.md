@@ -21,7 +21,9 @@
 
 あなたの人生を彩った「フルコース」を完成させ、他の人と特別な食の想い出を共有しましょう。
 
-<a href="https://myfullcourse-a3b651ea6c01.herokuapp.com/">アプリはこちらから</a>
+<a href="https://myfullcourse-a3b651ea6c01.herokuapp.com/">アプリはこちらから。</a>
+<p></p>
+<a href="https://qiita.com/HalloChiba/items/2edba42568374c90b61c">本アプリの詳しい記事はこちらから。</a>
 
 
 ## 開発環境
@@ -36,18 +38,22 @@
 ### 環境:
 - AWS(Cloud9)
 - Github
+- Google Maps API
+- Cloudinary
+- PostgreSQL
 
 ### デプロイ:
 - Heroku
 
 ## データ構成
-![image](https://github.com/user-attachments/assets/7a2b3b21-d42b-44a1-9331-1d46eec34235)
+![image](https://github.com/user-attachments/assets/3724f977-3506-4fae-a3da-a0e08ff3e238)
+
 
 
 ## 機能
 - CRUD
 - ユーザー管理
-- フルコース投稿機能
+- フルコース投稿機能(1カテゴリ1投稿)
 - 画像投稿機能
 - マップ機能(Google Maps API)
 - カテゴリ
@@ -55,6 +61,8 @@
 - いいね機能
 - 投稿への返信機能
 - プロフィール編集
+- グルメダイアリー投稿機能(無制限)
+- 画像一覧表示
 
 ## こだわり
 ### 投稿の検索機能
