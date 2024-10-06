@@ -12,7 +12,7 @@
                 <label for="content" class="block mb-2 text-sm font-medium text-gray-900">
                     グルメダイアリー <span class="text-red-500">*</span>
                 </label>
-                <textarea name="diary[content]" id="content" placeholder="フルコースとまではいかない、あなたのグルメに関する話を共有しましょう！" 
+                <textarea name="diary[content]" id="content" placeholder="フルコースとまではいかない、あなたのグルメに関する話を共有しましょう！" value="{{ old('diary.content') }}"
                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">{{ old('post.body') }}</textarea>
                 <p class="text-red-500">{{ $errors->first('diary.content') }}</p>
             </div>
