@@ -85,7 +85,7 @@
                     </div>
                     
                     <!-- Body -->
-                    <p class="mt-2 text-gray-800 dark:text-neutral-200">{{ $post->body }}</p>
+                    <p class="mt-2 text-gray-800">{{ $post->body }}</p>
 
                     <!-- Like Button -->
                     <div class="mt-4 flex items-center">
