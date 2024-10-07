@@ -44,7 +44,7 @@
             </div>
             
             <div class="image mb-6">
-                <label for="files" class="block mb-2 text-sm font-medium text-gray-900">画像(ファイルサイズは1つ2MBまで！)</label>
+                <label for="files" class="block mb-2 text-sm font-medium text-gray-900">画像(ファイルサイズは1つ2MB,4枚まで投稿できるよ！)</label>
                 <input type="file" name="files[]" id="files" multiple
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"> 
                 <p class="text-red-500">{{ $errors->first('files') }}</p>
